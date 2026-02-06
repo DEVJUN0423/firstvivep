@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyShareLinkButton = document.getElementById('copy-share-link');
     const shareTwitterButton = document.getElementById('share-twitter');
     const shareFacebookButton = document.getElementById('share-facebook');
+    const testResultsDisplay = document.getElementById('test-results-display');
 
     const testTypesConfig = [
         {
@@ -62,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentTestTypeIndex = 0;
-    let challengeUrlToCopy = ''; // Store the generated challenge URL for the copy button
+    let challengeUrlToCopy = '';
+    let isTransitioning = false; // New flag to prevent rapid clicks
 
     function renderComparisonMessage(currentResult, bestResult, config) {
         const resultCardEl = document.getElementById(config.cardId);
@@ -92,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openShareModal(message, url) {
-        challengeUrlToCopy = url; // Store the URL for the copy button
+        challengeUrlToCopy = url;
         shareModal.style.display = 'flex';
         shareTextDisplay.textContent = message;
 
@@ -170,8 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updateNavigationState();
-        showCurrentCard();
-
+        showCurrentCard(false); // Initial load, no animation
+        
         if (testJustCompleted) {
             localStorage.removeItem('currentTestResult');
         }
@@ -231,7 +233,27 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true, title: { display: chartData.datasets.length === 1, text: chartData.datasets[0].label } }, x: { title: { display: false } } },
+                animation: {
+                    duration: 500, // 0.5 second for chart animation
+                    easing: 'easeOutQuart', // A smooth easing function
+                    // For bar charts, animate 'y' to grow from bottom
+                    // For line charts, animate 'x' and 'y' for drawing effect
+                    x: {
+                        from: chartType === 'line' ? 0 : undefined // Animate x-axis for lines
+                    },
+                    y: {
+                        from: chartType === 'bar' ? 0 : undefined // Animate y-axis for bars
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: chartData.datasets.length === 1, text: chartData.datasets[0].label }
+                    },
+                    x: {
+                        title: { display: false }
+                    }
+                },
                 plugins: { legend: { display: chartData.datasets.length > 1 || chartType === 'bar', position: 'top' } }
             }
         });
@@ -244,11 +266,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showCurrentCard() {
-        document.querySelectorAll('.test-result-item').forEach(card => { card.style.display = 'none'; });
-        const currentCardId = testTypesConfig[currentTestTypeIndex].cardId;
-        const currentCard = document.getElementById(currentCardId);
-        if (currentCard) currentCard.style.display = 'block';
+    function showCurrentCard(animate = true) {
+        if (isTransitioning && animate) return; // Prevent new transitions if one is active
+
+        const allCards = document.querySelectorAll('.test-result-item');
+        const currentCard = document.getElementById(testTypesConfig[currentTestTypeIndex].cardId);
+
+        if (!animate) {
+            allCards.forEach(card => card.style.display = 'none');
+            if (currentCard) currentCard.style.display = 'block';
+            
+            const config = testTypesConfig[currentTestTypeIndex];
+            const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+            if (resultData) {
+                renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
+            } else {
+                clearChart(config);
+            }
+            shareButton.disabled = !resultData;
+            return;
+        }
+
+        isTransitioning = true; // Set flag at the start of an animated transition
+
+        const visibleCard = Array.from(allCards).find(card => card.style.display === 'block');
+        if (visibleCard) {
+            visibleCard.classList.add('card-fade-out');
+            visibleCard.addEventListener('animationend', function handler() {
+                visibleCard.classList.remove('card-fade-out');
+                visibleCard.style.display = 'none';
+                visibleCard.removeEventListener('animationend', handler); // Clean up listener
+                
+                if (currentCard) {
+                    currentCard.style.display = 'block';
+                    // Render content before fade-in to ensure it's there
+                    const config = testTypesConfig[currentTestTypeIndex];
+                    const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+                    if (resultData) {
+                         renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
+                    } else {
+                        clearChart(config);
+                    }
+
+                    currentCard.classList.add('card-fade-in');
+                    currentCard.addEventListener('animationend', function handler() {
+                        currentCard.classList.remove('card-fade-in');
+                        currentCard.removeEventListener('animationend', handler); // Clean up listener
+                        isTransitioning = false; // Reset flag after animation completes
+                    }, { once: true });
+                } else {
+                    isTransitioning = false; // Reset if there's no new card to show
+                }
+            }, { once: true });
+        } else {
+            // No visible card, just show and fade in the new one
+            if (currentCard) {
+                currentCard.style.display = 'block';
+                 const config = testTypesConfig[currentTestTypeIndex];
+                const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+                if (resultData) {
+                     renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
+                } else {
+                    clearChart(config);
+                }
+                currentCard.classList.add('card-fade-in');
+                currentCard.addEventListener('animationend', function handler() {
+                    currentCard.classList.remove('card-fade-in');
+                    currentCard.removeEventListener('animationend', handler); // Clean up listener
+                    isTransitioning = false; // Reset flag after animation completes
+                }, { once: true });
+            } else {
+                isTransitioning = false; // Reset if there's no new card to show
+            }
+        }
         
         const config = testTypesConfig[currentTestTypeIndex];
         const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
@@ -262,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     prevButton.addEventListener('click', () => {
+        if (isTransitioning) return; // Ignore clicks if transitioning
         if (currentTestTypeIndex > 0) {
             currentTestTypeIndex--;
             showCurrentCard();
@@ -270,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     nextButton.addEventListener('click', () => {
+        if (isTransitioning) return; // Ignore clicks if transitioning
         if (currentTestTypeIndex < testTypesConfig.length - 1) {
             currentTestTypeIndex++;
             showCurrentCard();

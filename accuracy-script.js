@@ -3,12 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const accuracyScoreDisplay = document.getElementById('accuracy-score');
     const accuracyTimerDisplay = document.getElementById('accuracy-timer');
     const accuracyResultsDisplay = document.getElementById('accuracy-results');
-    const startButton = gameArea.querySelector('.start-accuracy-button');
+    const startButton = document.querySelector('.start-accuracy-button'); // Changed selector from gameArea.querySelector
+    const accuracyMessage = document.getElementById('accuracy-message'); // New
 
     const gameDurationInput = document.getElementById('game-duration-input');
 
-    if (!gameArea || !accuracyScoreDisplay || !accuracyTimerDisplay || !accuracyResultsDisplay || !startButton || !gameDurationInput) {
-        return; // Exit if essential elements aren't on the page
+    if (!gameArea || !accuracyScoreDisplay || !accuracyTimerDisplay || !accuracyResultsDisplay || !startButton || !gameDurationInput || !accuracyMessage) {
+        console.error('One or more required elements for Accuracy Test not found. Script may not function correctly.');
+        return;
     }
 
     let score = 0;
@@ -111,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newResult = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
-            type: 'accuracy', // Add type for generic handling
+            type: 'accuracy',
             grade: grade,
             score: score,
             accuracy: accuracy,
@@ -120,25 +122,22 @@ document.addEventListener('DOMContentLoaded', () => {
             difficulty: currentDifficulty
         };
 
-        // Save current result for immediate feedback on the results page
         localStorage.setItem('currentTestResult', JSON.stringify(newResult));
         
-        // Retrieve the current best result
         let bestAccuracyResult = JSON.parse(localStorage.getItem('bestAccuracyTestResult'));
 
-        // Compare and update if the new result is better (higher score)
         if (!bestAccuracyResult || newResult.score > bestAccuracyResult.score) {
             localStorage.setItem('bestAccuracyTestResult', JSON.stringify(newResult));
         }
         
-        startButton.style.display = 'block';
-        startButton.textContent = '다시 시작';
+        accuracyMessage.textContent = '결과 페이지로 이동 중...'; // New: update message
+        startButton.textContent = '다시 시작'; // New: update button text
+        startButton.disabled = false; // New: enable start button
 
-        // Fade out and redirect
         document.body.classList.add('fade-out');
         setTimeout(() => {
             window.location.href = 'results.html';
-        }, 500); // Match CSS transition duration
+        }, 500);
     }
     
     function getAccuracyGrade(accuracy, avgReactionTime) {
@@ -186,7 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
         hitReactionTimes = [];
         gameRunning = true;
         accuracyResultsDisplay.innerHTML = '';
-        startButton.style.display = 'none';
+        accuracyMessage.textContent = '게임을 플레이 중입니다...'; // New: update message
+        startButton.disabled = true; // New: disable start button
 
         updateScore();
         updateTimer();
@@ -210,6 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Initial setup
     updateScore();
     updateTimer();
+    accuracyMessage.textContent = '클릭하여 게임 시작'; // Initial message
 });

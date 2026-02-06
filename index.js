@@ -48,14 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTestId = 'reaction'; // Default selected test
 
     function updateHeroSection(testId) {
-        const test = testsData[testId];
-        if (test) {
-            document.title = `반응 속도 테스트 - ${test.name}`;
-            heroHeading.textContent = test.name;
-            heroDescription.textContent = test.description;
-            startTestButton.href = test.url;
+        const testListItem = testList.querySelector(`[data-test-id="${testId}"]`);
+        if (testListItem) {
+            const testName = testListItem.querySelector('h3').textContent;
+            const testDescription = testListItem.querySelector('p').textContent;
+            const testUrl = testListItem.dataset.url;
+
+            document.title = `반응 속도 테스트 - ${testName}`;
+            heroHeading.textContent = testName;
+            heroDescription.textContent = testDescription;
+            startTestButton.href = testUrl;
             
-            if (test.url === '#') {
+            if (testUrl === '#') {
                 startTestButton.classList.add('disabled');
                 startTestButton.style.pointerEvents = 'none';
             } else {
@@ -90,11 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                   `기록: ${challengeData.metric} ${challengeData.unit} (등급: ${challengeData.grade})\n\n` +
                                   `이 기록을 뛰어넘을 수 있나요?`;
                     
-                    challengeText.innerText = message; // Use innerText to respect newlines
+                    challengeText.innerText = message;
                     challengeStartButton.href = testInfo.url;
                     challengeModal.style.display = 'flex';
 
-                    // Also update the main page hero to the challenged test
                     updateHeroSection(challengeData.type); 
                 }
             } catch (e) {
@@ -111,6 +114,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const listItem = event.target.closest('li');
         if (listItem && listItem.dataset.testId) {
             updateHeroSection(listItem.dataset.testId);
+        }
+    });
+
+    // New: Add dblclick listener for direct navigation
+    testList.addEventListener('dblclick', (event) => {
+        const listItem = event.target.closest('li');
+        if (listItem && listItem.dataset.url) {
+            const testUrl = listItem.dataset.url;
+            if (testUrl !== '#') {
+                window.location.href = testUrl;
+            } else {
+                alert('이 테스트는 아직 준비 중입니다!');
+            }
         }
     });
 

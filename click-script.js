@@ -4,14 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickTimerDisplay = document.getElementById('click-timer');
     const clickResultDisplay = document.getElementById('click-result');
     const gameDurationInput = document.getElementById('game-duration-input');
+    const clickMessage = document.getElementById('click-message');
 
     let clickCount = 0;
     let timer = 0;
     let gameInterval;
-    let gameRunning = false;
+    let gamePhase = 'ready'; // 'ready', 'playing', 'finished'
     let gameDuration = 5; // Default to 5 seconds
 
-    if (!clickArea || !clickCountDisplay || !clickTimerDisplay || !clickResultDisplay || !gameDurationInput) {
+    if (!clickArea || !clickCountDisplay || !clickTimerDisplay || !clickResultDisplay || !gameDurationInput || !clickMessage) {
         console.error('One or more required elements for Click Speed Test not found. Script may not function correctly.');
         return;
     }
@@ -19,31 +20,37 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetGame() {
         clickCount = 0;
         timer = 0;
-        gameRunning = false;
+        gamePhase = 'ready';
         clearInterval(gameInterval);
         clickCountDisplay.textContent = '클릭: 0';
         clickTimerDisplay.textContent = '시간: 0.00초';
         clickResultDisplay.textContent = '';
-        clickArea.textContent = '클릭하여 시작';
+        clickMessage.textContent = '클릭하여 시작';
         clickArea.classList.remove('playing');
         gameDurationInput.disabled = false;
+        clickArea.style.cursor = 'pointer'; // Make it clear it's clickable
     }
 
     function startGame() {
         gameDuration = parseInt(gameDurationInput.value, 10);
         if (isNaN(gameDuration) || gameDuration <= 0) {
-            alert('유효한 테스트 시간을 입력하세요 (양의 정수).');
+            alert('유효한 테스트 시간을 입력하세요 (1 이상의 숫자).');
             return;
         }
 
-        resetGame();
-        gameRunning = true;
-        gameDurationInput.disabled = true;
-        clickArea.textContent = '클릭!';
-        clickArea.classList.add('playing');
-        
+        // Reset game state but don't reset clickMessage yet
+        clickCount = 0;
+        timer = 0;
+        clearInterval(gameInterval);
         clickCountDisplay.textContent = '클릭: 0';
         clickTimerDisplay.textContent = `시간: ${gameDuration.toFixed(2)}초`;
+        clickResultDisplay.textContent = '';
+        
+        gamePhase = 'playing';
+        gameDurationInput.disabled = true;
+        clickArea.classList.add('playing');
+        clickMessage.textContent = '클릭 중...';
+        clickArea.style.cursor = 'crosshair'; // Change cursor during game
 
         let startTime = new Date().getTime();
         gameInterval = setInterval(() => {
@@ -58,9 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function endGame() {
-        gameRunning = false;
+        gamePhase = 'finished';
         clearInterval(gameInterval);
         clickArea.classList.remove('playing');
+        clickArea.style.cursor = 'pointer'; // Reset cursor
         
         const cps = clickCount / gameDuration;
         const grade = getClickSpeedGrade(cps);
@@ -75,24 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const newResult = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
-            type: 'click', // Add type for generic handling
+            type: 'click',
             grade: grade,
             clickCount: clickCount,
             cps: cps.toFixed(2),
             gameDuration: gameDuration
         };
 
-        // Save current result for immediate feedback on the results page
         localStorage.setItem('currentTestResult', JSON.stringify(newResult));
 
         let bestClickResult = JSON.parse(localStorage.getItem('bestClickTestResult'));
 
-        // Higher CPS is better
         if (!bestClickResult || parseFloat(newResult.cps) > parseFloat(bestClickResult.cps)) {
             localStorage.setItem('bestClickTestResult', JSON.stringify(newResult));
         }
 
-        clickArea.textContent = '결과 페이지로 이동 중...';
+        clickMessage.textContent = '결과 페이지로 이동 중...';
 
         document.body.classList.add('fade-out');
         setTimeout(() => {
@@ -108,14 +114,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'D';
     }
 
-    clickArea.addEventListener('mousedown', () => {
-        if (gameRunning) {
-            clickCount++;
-            clickCountDisplay.textContent = `클릭: ${clickCount}`;
-        } else if (clickArea.classList.contains('ready')) {
+    clickArea.addEventListener('mousedown', (event) => {
+        if (gamePhase === 'ready') {
             startGame();
             clickCount++; // Count the first click that starts the game
             clickCountDisplay.textContent = `클릭: ${clickCount}`;
+        } else if (gamePhase === 'playing') {
+            clickCount++;
+            clickCountDisplay.textContent = `클릭: ${clickCount}`;
+        } else if (gamePhase === 'finished') {
+            // After game finishes, clicking starts a new game
+            resetGame();
         }
     });
 

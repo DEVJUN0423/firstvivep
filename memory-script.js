@@ -5,25 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const memoryResultDisplay = document.getElementById('memory-result');
     const gridSizeSelect = document.getElementById('grid-size');
     const attemptCountInput = document.getElementById('attempt-count');
-    const recallTimeLimitInput = document.getElementById('recall-time-limit'); // New
+    const recallTimeLimitInput = document.getElementById('recall-time-limit');
 
-    let gridSize = 5; // Default to Normal (5x5)
-    let numToHighlight = 0; // Will be randomized per round
-    let displayTime = 1500; // ms
-    let gamePhase = 'ready'; // 'ready', 'memorizing', 'recalling', 'finished'
-    let highlightedSquares = [];
-    let clickedSquares = new Set(); // To track squares clicked in current round
+    let gridSize = 5;
+    let numToHighlight = 0;
+    let displayTime = 1500;
+    let gamePhase = 'ready';
+    let highlightedSquares = []; // Stores indices of squares to be remembered
+    let clickedSquares = new Set(); // Stores indices of squares clicked by user in current round
     let score = 0;
     let roundCorrect = 0;
     let roundIncorrect = 0;
 
     let totalAttempts = 1;
     let currentAttempt = 0;
-    let allAttemptsResults = []; // Stores score per attempt
+    let allAttemptsResults = [];
 
-    let recallDuration = 5; // seconds, new
-    let recallTimer; // new
-    let timeRemaining; // new
+    let recallDuration = 5; // seconds
+    let recallTimer;
+    let timeRemaining;
 
     if (!gameBoard || !memoryMessage || !memoryScoreDisplay || !memoryResultDisplay || !gridSizeSelect || !attemptCountInput || !recallTimeLimitInput) {
         console.error('One or more required elements for Visual Memory Test not found. Script may not function correctly.');
@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         clickedSquares.clear();
         roundCorrect = 0;
         roundIncorrect = 0;
-        gameBoard.innerHTML = ''; // Clear grid
+        gameBoard.innerHTML = '';
         gameBoard.classList.remove('active');
         memoryScoreDisplay.textContent = `현재 점수: ${score}`;
-        clearInterval(recallTimer); // Ensure timer is cleared on reset
+        clearInterval(recallTimer); // Ensure timer is cleared
+        memoryResultDisplay.innerHTML = ''; // Clear previous round results
     }
 
     function resetGame() {
@@ -47,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         score = 0;
         currentAttempt = 0;
         allAttemptsResults = [];
-        memoryResultDisplay.textContent = '';
         memoryMessage.textContent = '클릭하여 시작';
         gridSizeSelect.disabled = false;
         attemptCountInput.disabled = false;
-        recallTimeLimitInput.disabled = false; // New
+        recallTimeLimitInput.disabled = false;
+        memoryResultDisplay.innerHTML = ''; // Clear any final game results
     }
 
     function generateGrid() {
@@ -67,14 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getHighlightCount(grid) {
         switch (grid) {
-            case 3: return Math.floor(Math.random() * (4 - 2 + 1)) + 2; // Easy: 2-4
-            case 5: return Math.floor(Math.random() * (7 - 4 + 1)) + 4; // Normal: 4-7
-            case 7: return Math.floor(Math.random() * (12 - 7 + 1)) + 7; // Hard: 7-12
+            case 3: return Math.floor(Math.random() * (4 - 2 + 1)) + 2; // 2-4
+            case 5: return Math.floor(Math.random() * (7 - 4 + 1)) + 4; // 4-7
+            case 7: return Math.floor(Math.random() * (12 - 7 + 1)) + 7; // 7-12
             default: return 4;
         }
     }
 
     function startNewRound() {
+        // Clear previous round visual feedback
+        gameBoard.querySelectorAll('.grid-square').forEach(sq => sq.classList.remove('highlight', 'correct', 'incorrect'));
+        
         gridSize = parseInt(gridSizeSelect.value, 10);
         numToHighlight = getHighlightCount(gridSize);
         clickedSquares.clear();
@@ -84,11 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
         gamePhase = 'memorizing';
         gridSizeSelect.disabled = true;
         attemptCountInput.disabled = true;
-        recallTimeLimitInput.disabled = true; // New
+        recallTimeLimitInput.disabled = true;
         memoryMessage.textContent = `시도 ${currentAttempt}/${totalAttempts}: 기억하세요...`;
         
         generateGrid();
-        gameBoard.classList.add('active');
+        gameBoard.classList.add('active'); // Enable clicks visually (but not yet functionally)
 
         const allSquares = Array.from({ length: gridSize * gridSize }, (_, i) => i);
         highlightedSquares = [];
@@ -106,12 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameBoard.children[index].classList.remove('highlight');
             });
             gamePhase = 'recalling';
-            timeRemaining = recallDuration; // New
-            startRecallTimer(); // New
+            timeRemaining = recallDuration;
+            startRecallTimer();
         }, displayTime);
     }
 
-    function startRecallTimer() { // New function
+    function startRecallTimer() {
         memoryMessage.textContent = `시도 ${currentAttempt}/${totalAttempts}: 클릭하세요! 남은 시간: ${timeRemaining}초`;
         recallTimer = setInterval(() => {
             timeRemaining--;
@@ -128,64 +132,61 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSquareClick(event) {
         if (gamePhase !== 'recalling') return;
 
-        const clickedSquare = event.target;
-        if (!clickedSquare.classList.contains('grid-square') || clickedSquares.has(clickedSquare)) return;
+        const clickedSquareElement = event.target;
+        if (!clickedSquareElement.classList.contains('grid-square')) return;
 
-        const index = parseInt(clickedSquare.dataset.index, 10);
-        clickedSquares.add(clickedSquare); // Mark as clicked in this round
+        const index = parseInt(clickedSquareElement.dataset.index, 10);
+
+        // Ensure square hasn't been clicked yet in this round
+        if (clickedSquares.has(index)) {
+            // Already clicked, ignore
+            return;
+        }
+
+        clickedSquares.add(index); // Mark as clicked in this round
 
         if (highlightedSquares.includes(index)) {
             roundCorrect++;
             score += 10;
-            clickedSquare.classList.add('correct');
+            clickedSquareElement.classList.add('correct');
         } else {
             roundIncorrect++;
             score = Math.max(0, score - 5); 
-            clickedSquare.classList.add('incorrect');
+            clickedSquareElement.classList.add('incorrect');
         }
         memoryScoreDisplay.textContent = `현재 점수: ${score}`;
 
-        if (clickedSquares.size >= numToHighlight) { // User has clicked enough squares for this round
-            clearInterval(recallTimer); // New: stop timer if all expected clicks are made
-            // Give a small delay to see the last click
-            setTimeout(endRound, 500); 
+        // Check if all highlighted squares have been clicked (or enough clicks to proceed)
+        if (clickedSquares.size === numToHighlight) {
+            clearInterval(recallTimer);
+            setTimeout(endRound, 500); // Small delay to show last click feedback
         }
     }
 
-    function endRound(timeRanOut = false) { // Modified to accept timeRanOut
-        clearInterval(recallTimer); // New: ensure timer is cleared
+    function endRound(timeRanOut = false) {
+        clearInterval(recallTimer);
         gameBoard.classList.remove('active'); // Disable further clicks for this round
 
-        // Calculate additional incorrect squares if time ran out
-        if (timeRanOut) {
-            const unclickedHighlighted = highlightedSquares.filter(index => {
-                // Check if the original highlighted square was NOT clicked
-                return !Array.from(clickedSquares).some(clickedSq => parseInt(clickedSq.dataset.index) === index);
-            });
-            roundIncorrect += unclickedHighlighted.length;
-            score = Math.max(0, score - (unclickedHighlighted.length * 5)); // Penalize for missed squares
-            memoryScoreDisplay.textContent = `현재 점수: ${score}`;
-            
-            // Visually mark unclicked highlighted squares as missed
-            unclickedHighlighted.forEach(index => {
-                const square = gameBoard.children[index];
-                if (!square.classList.contains('correct') && !square.classList.contains('incorrect')) {
-                    square.classList.add('incorrect'); // Mark as incorrect if not already handled
+        // If time ran out or not all highlighted squares were clicked
+        if (timeRanOut || clickedSquares.size < numToHighlight) {
+            highlightedSquares.forEach(index => {
+                if (!clickedSquares.has(index)) {
+                    // This highlighted square was not clicked by the user
+                    const squareElement = gameBoard.children[index];
+                    if (!squareElement.classList.contains('correct') && !squareElement.classList.contains('incorrect')) {
+                        // Only add incorrect class if it's not already marked
+                        squareElement.classList.add('incorrect');
+                        roundIncorrect++;
+                        score = Math.max(0, score - 5);
+                    }
                 }
             });
+            memoryScoreDisplay.textContent = `현재 점수: ${score}`;
         }
-
-        // Ensure all highlighted squares are revealed if not clicked (for visual feedback)
-        highlightedSquares.forEach(index => {
-            const square = gameBoard.children[index];
-            if (!square.classList.contains('correct') && !square.classList.contains('incorrect')) {
-                 square.classList.add('highlight'); // Show original highlight if missed
-            }
-        });
         
         allAttemptsResults.push({
             attempt: currentAttempt,
-            score: score, // Score at the end of this attempt
+            score: score,
             correct: roundCorrect,
             incorrect: roundIncorrect,
             highlighted: numToHighlight
@@ -206,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        recallDuration = parseInt(recallTimeLimitInput.value, 10); // New: get recall duration
+        recallDuration = parseInt(recallTimeLimitInput.value, 10);
         if (isNaN(recallDuration) || recallDuration < 1) {
             alert('유효한 기억 시간을 입력하세요 (1 이상의 숫자).');
             return;
@@ -220,9 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function endGame() {
         gamePhase = 'finished';
         gameBoard.classList.remove('active');
-        clearInterval(recallTimer); // Ensure timer is cleared at game end
+        clearInterval(recallTimer);
 
-        // Aggregate results
         const finalScore = allAttemptsResults.reduce((sum, res) => sum + res.score, 0);
         const totalCorrect = allAttemptsResults.reduce((sum, res) => sum + res.correct, 0);
         const totalIncorrect = allAttemptsResults.reduce((sum, res) => sum + res.incorrect, 0);
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newResult = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
-            type: 'memory', // Add type for generic handling
+            type: 'memory',
             grade: grade,
             finalScore: finalScore,
             totalCorrectClicks: totalCorrect,
@@ -250,16 +250,14 @@ document.addEventListener('DOMContentLoaded', () => {
             totalHighlighted: totalHighlighted,
             gridSize: gridSize,
             totalAttempts: totalAttempts,
-            recallDuration: recallDuration, // New: save recall duration
-            attemptDetails: allAttemptsResults // Keep details of each attempt
+            recallDuration: recallDuration,
+            attemptDetails: allAttemptsResults
         };
 
-        // Save current result for immediate feedback on the results page
         localStorage.setItem('currentTestResult', JSON.stringify(newResult));
 
         let bestMemoryResult = JSON.parse(localStorage.getItem('bestMemoryTestResult'));
 
-        // Higher score is better
         if (!bestMemoryResult || newResult.finalScore > bestMemoryResult.finalScore) {
             localStorage.setItem('bestMemoryTestResult', JSON.stringify(newResult));
         }
@@ -290,5 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial setup
     resetGame();
-    generateGrid(); // Generate initial grid based on default settings
+    generateGrid();
+    memoryMessage.textContent = '클릭하여 시작';
 });

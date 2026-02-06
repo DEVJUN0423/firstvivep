@@ -10,18 +10,10 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <aside class="sidebar sidebar-left">
-            <section class="adsense-placeholder">
-                <!-- Google AdSense 코드 여기에 삽입 -->
-                <p>[광고 영역]</p>
-            </section>
-        </aside>
-
         <div class="main-content">
             <div class="container">
                 <header>
                     <h1>마우스 클릭 속도 테스트</h1>
-                    <p>정해진 시간 안에 최대한 많이 클릭하세요!</p>
                 </header>
                 <main>
                     <div class="click-test-settings">
@@ -29,17 +21,15 @@
                         <input type="number" id="game-duration-input" value="5" min="1" max="60">
                     </div>
                     <div id="click-area" class="click-area ready">
-                        <p>클릭하여 시작</p>
+                        <p>정해진 시간 안에 최대한 많이 클릭하세요!</p>
+                        <button class="start-button">클릭하여 시작</button>
                     </div>
                     <div id="click-count">클릭: 0</div>
                     <div id="click-timer">시간: 0.00초</div>
+                    <div id="click-message" class="result-box"></div>
                     <div id="click-result" class="result-box">
                         <!-- 최종 결과 표시 -->
                     </div>
-        
-                    <section class="back-to-main">
-                        <a href="index.html" class="button">메인으로 돌아가기</a>
-                    </section>
                 </main>
                 <footer>
                     <p>&copy; 2026 반응 속도 테스트. All rights reserved.</p>
@@ -47,18 +37,8 @@
             </div>
             <script src="click-script.js"></script>
             <a href="settings.html" class="floating-settings-btn" title="설정">⚙️</a>
+            <a href="index.html" class="floating-back-to-main-btn" title="메인으로">🏠 메인</a>
         </div>
-
-        <aside class="sidebar sidebar-right">
-            <section class="adsense-placeholder">
-                <!-- Google AdSense 코드 여기에 삽입 -->
-                <p>[광고 영역]</p>
-            </section>
-            <section class="adsense-placeholder">
-                <!-- Google AdSense 코드 여기에 삽입 -->
-                <p>[추가 광고 영역]</p>
-            </section>
-        </aside>
     </div>
 </body>
 </html>

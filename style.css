@@ -6,8 +6,6 @@
     --header-p-color: #555;
     --hero-bg-color: #e0f2f7;
     --hero-h2-color: #0056b3;
-    --adsense-bg-color: #f0f0f0;
-    --adsense-text-color: #666;
     --features-bg-color: #f9f9f9;
     --features-li-hover-bg-color: #e9ecef;
     --footer-text-color: #777;
@@ -20,6 +18,10 @@
     --floating-btn-bg-color: #007bff;
     --floating-btn-text-color: white;
     --floating-btn-shadow: rgba(0, 0, 0, 0.2);
+    --input-bg-color: #f8f9fa;
+    --input-border-color: #ced4da;
+    --input-focus-border-color: #80bdff;
+    --radio-checked-bg: #007bff;
 }
 
 body.dark-mode {
@@ -30,8 +32,6 @@ body.dark-mode {
     --header-p-color: #a0a0a0;
     --hero-bg-color: #0f3460;
     --hero-h2-color: #a0c4ff;
-    --adsense-bg-color: #0a1128;
-    --adsense-text-color: #888;
     --features-bg-color: #121f45;
     --features-li-hover-bg-color: #1a3c7a;
     --footer-text-color: #888;
@@ -44,6 +44,10 @@ body.dark-mode {
     --floating-btn-bg-color: #66ccff;
     --floating-btn-text-color: #1a1a2e;
     --floating-btn-shadow: rgba(0, 0, 0, 0.5);
+    --input-bg-color: #2e3b52;
+    --input-border-color: #4a5c78;
+    --input-focus-border-color: #a0c4ff;
+    --radio-checked-bg: #66ccff;
 }
 
 body {
@@ -54,31 +58,29 @@ body {
     color: var(--text-color);
     box-sizing: border-box;
     transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    position: relative;
 }
 
 .page-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
+    min-height: 100vh;
 }
 
-.sidebar {
-    width: 200px; /* Adjust width as needed */
-    padding: 20px;
+.main-content {
+    flex-grow: 1;
+    max-width: 800px;
+    width: 100%;
+    padding-bottom: 80px;
 }
 
-.sidebar-left { order: 1; }
-.main-content { order: 2; flex-grow: 1; max-width: 800px; }
-.sidebar-right { order: 3; }
-
-/* In the original CSS, .container had margin and width. We need to adjust this. */
 .container {
     background-color: var(--container-bg-color);
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    /* width: 90%; This is now controlled by .main-content */
-    /* max-width: 800px; This is now controlled by .main-content */
-    margin: 20px 0; /* Remove horizontal auto margin */
+    margin: 20px;
     padding: 30px;
     text-align: center;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -103,6 +105,9 @@ header p {
 
 main {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-section {
@@ -122,7 +127,7 @@ main {
 .start-button, .button {
     display: inline-block;
     background-color: var(--button-bg-color);
-    color: var(--floating-btn-text-color); /* To make dark mode text more readable */
+    color: var(--floating-btn-text-color);
     padding: 15px 30px;
     border-radius: 5px;
     text-decoration: none;
@@ -136,21 +141,6 @@ main {
     background-color: var(--button-hover-bg-color);
 }
 
-.adsense-placeholder {
-    margin: 0 0 20px 0; /* Adjusted margin for sidebars */
-    padding: 20px;
-    background-color: var(--adsense-bg-color);
-    border-radius: 8px;
-    color: var(--adsense-text-color);
-    font-style: italic;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .features-placeholder {
     margin-top: 50px;
     padding: 30px 20px;
@@ -161,42 +151,79 @@ main {
 }
 
 .features-placeholder h2 {
-    color: var(--text-color); /* Use general text color */
+    color: var(--text-color);
     margin-bottom: 20px;
 }
 
 .features-placeholder ul {
     list-style: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Enforce 2 columns */
+    gap: 15px;
+    justify-content: center;
 }
 
 .features-placeholder li {
+    background-color: var(--container-bg-color);
     margin-bottom: 10px;
-    color: var(--header-p-color); /* Use a slightly muted text color */
-    padding: 8px 15px; /* Add padding for better click area */
+    color: var(--text-color);
+    padding: 20px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.features-placeholder li h3 {
+    color: var(--header-h1-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.features-placeholder li p {
+    color: var(--header-p-color);
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 0;
 }
 
 .features-placeholder li:hover {
     background-color: var(--features-li-hover-bg-color);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .features-placeholder li.selected {
     background-color: var(--selected-li-bg-color);
     color: var(--selected-li-text-color);
     font-weight: bold;
+    border-color: var(--selected-li-bg-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Disabled state for start button */
+.features-placeholder li.selected h3,
+body.dark-mode .features-placeholder li.selected h3 {
+    color: var(--selected-li-text-color);
+}
+body.dark-mode .features-placeholder li.selected p,
+.features-placeholder li.selected p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 .start-button.disabled {
     background-color: var(--disabled-button-bg-color);
     cursor: not-allowed;
 }
 
 .start-button.disabled:hover {
-    background-color: var(--disabled-button-bg-color); /* No hover effect for disabled */
+    background-color: var(--disabled-button-bg-color);
 }
 
 /* Settings Page Specific Styles */
@@ -285,7 +312,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
@@ -294,14 +320,13 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-
 /* Reaction Test Specific Styles */
 #reaction-area {
     width: 250px;
     height: 250px;
-    background-color: #ccc; /* Default grey */
+    background-color: #ccc;
     margin: 50px auto;
-    border-radius: 50%; /* Circle shape */
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -310,42 +335,44 @@ input:checked + .slider:before {
     color: white;
     cursor: pointer;
     transition: background-color 0.1s ease-in-out;
-    user-select: none; /* Prevent text selection */
+    user-select: none;
 }
 
 #reaction-area.ready {
-    background-color: #007bff; /* Blue for "Click to Start" */
+    background-color: var(--button-bg-color);
 }
 
 #reaction-area.wait {
-    background-color: #ffc107; /* Orange for "Wait" */
+    background-color: #ffc107;
     color: #333;
 }
 
 #reaction-area.go {
-    background-color: #28a745; /* Green for "Go" */
+    background-color: #28a745;
 }
-
 
 .result-box {
     margin-top: 30px;
     font-size: 1.3em;
-    color: var(--header-h1-color); /* Use theme color */
+    color: var(--header-h1-color);
     font-weight: bold;
 }
 
 .result-box.error {
-    color: #dc3545; /* Red for "Too Soon" */
+    color: #dc3545;
 }
 
-/* New styles for multi-attempt test */
 .test-controls {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--features-bg-color);
 }
 
 .test-controls label {
@@ -355,17 +382,22 @@ input:checked + .slider:before {
 
 .test-controls input[type="number"] {
     padding: 10px 15px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     font-size: 1em;
     width: 80px;
     text-align: center;
-    background-color: var(--container-bg-color);
+    background-color: var(--input-bg-color);
     color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.test-controls input[type="number"]:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
 .test-controls button {
-    /* Reusing .button style, but can override if needed */
     padding: 10px 20px;
     font-size: 1em;
 }
@@ -388,15 +420,14 @@ input:checked + .slider:before {
 }
 
 #reaction-chart {
-    background-color: var(--container-bg-color); /* Ensure chart background matches theme */
+    background-color: var(--container-bg-color);
 }
 
-/* Accuracy Test Specific Styles */
 #game-area {
     width: 100%;
     height: 400px;
-    background-color: var(--hero-bg-color); /* Using theme variable */
-    border: 2px solid var(--button-bg-color); /* Using theme variable */
+    background-color: var(--hero-bg-color);
+    border: 2px solid var(--button-bg-color);
     border-radius: 8px;
     margin: 30px auto;
     position: relative;
@@ -408,7 +439,7 @@ input:checked + .slider:before {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: #dc3545; /* Red target */
+    background-color: #dc3545;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -422,14 +453,14 @@ input:checked + .slider:before {
 }
 
 .target.hit {
-    background-color: #28a745; /* Green when hit */
+    background-color: #28a745;
     transform: scale(0.8);
 }
 
 #accuracy-score, #accuracy-timer {
     font-size: 1.4em;
     margin-top: 20px;
-    color: var(--header-h1-color); /* Using theme variable */
+    color: var(--header-h1-color);
     font-weight: bold;
 }
 
@@ -442,7 +473,6 @@ input:checked + .slider:before {
     background-color: #218838;
 }
 
-/* New styles for Accuracy Test settings */
 .game-settings {
     margin-bottom: 20px;
     display: flex;
@@ -469,21 +499,53 @@ input:checked + .slider:before {
 }
 
 .difficulty-selection input[type="radio"] {
-    margin-left: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--input-border-color);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.difficulty-selection input[type="radio"]:checked {
+    background-color: var(--radio-checked-bg);
+    border-color: var(--radio-checked-bg);
+}
+
+.difficulty-selection input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .time-setting input[type="number"] {
     padding: 8px 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     font-size: 1em;
     width: 70px;
     text-align: center;
-    background-color: var(--container-bg-color);
+    background-color: var(--input-bg-color);
     color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.time-setting input[type="number"]:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
-/* Mouse Click Speed Test Specific Styles */
 .click-test-settings {
     margin-bottom: 20px;
     display: flex;
@@ -505,23 +567,30 @@ input:checked + .slider:before {
 
 .click-test-settings input[type="number"] {
     padding: 8px 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     font-size: 1em;
     width: 70px;
     text-align: center;
-    background-color: var(--container-bg-color);
+    background-color: var(--input-bg-color);
     color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.click-test-settings input[type="number"]:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
 #click-area {
     width: 100%;
     max-width: 500px;
     height: 300px;
-    background-color: var(--button-bg-color); /* Blue for clickable area */
+    background-color: var(--button-bg-color);
     margin: 30px auto;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 2em;
@@ -532,8 +601,19 @@ input:checked + .slider:before {
     user-select: none;
 }
 
+#click-area p {
+    font-size: 0.7em;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#click-area .start-button {
+    padding: 10px 20px;
+    font-size: 0.8em;
+}
+
 #click-area.playing {
-    background-color: #28a745; /* Green when playing */
+    background-color: #28a745;
 }
 
 #click-count, #click-timer {
@@ -543,7 +623,6 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-/* Visual Memory Test Specific Styles */
 .memory-test-settings {
     margin-bottom: 20px;
     display: flex;
@@ -566,19 +645,26 @@ input:checked + .slider:before {
 .memory-test-settings select,
 .memory-test-settings input[type="number"] {
     padding: 8px 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     font-size: 1em;
     text-align: center;
-    background-color: var(--container-bg-color);
+    background-color: var(--input-bg-color);
     color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.memory-test-settings select:focus,
+.memory-test-settings input[type="number"]:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
 #game-board {
     display: grid;
     gap: 5px;
     width: 100%;
-    max-width: 400px; /* Adjust as needed */
+    max-width: 400px;
     margin: 30px auto;
     padding: 5px;
     background-color: var(--border-color);
@@ -587,7 +673,7 @@ input:checked + .slider:before {
 
 .grid-square {
     width: 100%;
-    padding-bottom: 100%; /* Makes squares responsive */
+    padding-bottom: 100%;
     background-color: var(--container-bg-color);
     border-radius: 5px;
     cursor: pointer;
@@ -600,15 +686,15 @@ input:checked + .slider:before {
 }
 
 .grid-square.highlight {
-    background-color: var(--button-bg-color); /* Highlight color */
+    background-color: var(--button-bg-color);
 }
 
 .grid-square.correct {
-    background-color: #28a745; /* Green for correct click */
+    background-color: #28a745;
 }
 
 .grid-square.incorrect {
-    background-color: #dc3545; /* Red for incorrect click */
+    background-color: #dc3545;
 }
 
 #memory-message, #memory-score {
@@ -618,34 +704,30 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-/* Styles for index.html hero section buttons */
 .start-button-wrapper {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Adds space between buttons */
+    gap: 15px;
     margin-top: 20px;
-    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+    flex-wrap: wrap;
 }
 
-
-/* Styles for results.html */
 .navigation-controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Distribute items evenly */
     align-items: center;
-    gap: 15px;
+    gap: 10px; /* Smaller gap */
     margin-bottom: 30px;
+    padding: 10px;
+    background-color: var(--features-bg-color); /* Subtle background */
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.navigation-controls button {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    background-color: var(--button-bg-color);
-    color: var(--floating-btn-text-color);
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+.navigation-controls .button {
+    padding: 8px 15px; /* Slightly smaller buttons */
+    font-size: 0.9em;
 }
 
 .navigation-controls button:hover:not(:disabled) {
@@ -660,68 +742,85 @@ input:checked + .slider:before {
 #result-counter {
     font-size: 1.2em;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--header-h1-color); /* Make it stand out more */
+    flex-grow: 1; /* Allow it to take available space */
+    text-align: center;
 }
 
 #test-results-display {
     display: flex;
-    flex-direction: column; /* Stack results vertically */
-    gap: 30px; /* Space between stacked cards */
+    flex-direction: column;
+    gap: 25px; /* Slightly reduced gap between cards */
     margin-top: 20px;
 }
 
 .result-card {
-    padding: 25px;
-    background-color: var(--features-bg-color);
-    border-radius: 10px;
+    padding: 30px; /* More padding for better breathing room */
+    background-color: var(--container-bg-color); /* Clearer background */
+    border-radius: 12px; /* Slightly more rounded */
     border: 1px solid var(--border-color);
     text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
 }
 
 .result-card h2 {
     color: var(--header-h1-color);
-    margin-bottom: 20px;
+    font-size: 2.2em; /* Slightly larger */
+    margin-bottom: 15px;
 }
 
 .grade {
-    font-size: 3em;
-    font-weight: bold;
+    font-size: 3.5em; /* Larger grade for emphasis */
+    font-weight: 900; /* Bolder */
     color: var(--hero-h2-color);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 2px solid var(--border-color); /* Stronger separator */
 }
 
 .stats p {
     font-size: 1.1em;
     color: var(--text-color);
-    margin: 5px 0;
+    margin: 8px 0; /* More spacing between stats lines */
+    line-height: 1.4;
 }
 
 .back-to-main {
-    margin-top: 40px;
+    display: none;
 }
 
-footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
-    color: var(--footer-text-color);
-    font-size: 0.9em;
+.floating-back-to-main-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: var(--floating-btn-bg-color);
+    color: var(--floating-btn-text-color);
+    font-size: 1.2em;
+    padding: 15px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px var(--floating-btn-shadow);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 1000;
 }
 
-/* Page transition animation */
+.floating-back-to-main-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover-bg-color);
+}
+
 .fade-out {
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
 
-/* Floating Settings Button */
 .floating-settings-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: var(--floating-btn-bg-color);
     color: var(--floating-btn-text-color);
-    font-size: 2.5em; /* Larger emoji */
+    font-size: 2.5em;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -736,43 +835,43 @@ footer {
 
 .floating-settings-btn:hover {
     transform: scale(1.1);
-    background-color: var(--button-hover-bg-color); /* Reuse existing hover color variable */
+    background-color: var(--button-hover-bg-color);
 }
 
-/* Media Queries for Responsive Layout */
-
-/* For tablet and larger */
-@media (min-width: 769px) {
-    /* Sidebars are visible */
-}
-
-/* For mobile devices */
 @media (max-width: 768px) {
-    .page-wrapper {
-        flex-direction: column;
+    .container {
+        margin: 10px;
+        padding: 20px;
     }
-
-    .sidebar {
-        width: 100%;
-        order: 3; /* Move sidebars to the bottom */
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+    header h1 {
+        font-size: 2em;
     }
-
+    .features-placeholder ul {
+        grid-template-columns: 1fr;
+    }
+    .floating-back-to-main-btn, .floating-settings-btn {
+        font-size: 1em;
+        padding: 10px 15px;
+        width: auto;
+        height: auto;
+        border-radius: 50px;
+    }
+    .floating-back-to-main-btn {
+        bottom: 15px;
+        left: 15px;
+    }
+    .floating-settings-btn {
+        bottom: 15px;
+        right: 15px;
+    }
     .main-content {
-        order: 1; /* Main content first */
-    }
-
-    .sidebar-left {
-        display: none; /* Can hide one sidebar on mobile to avoid clutter */
+        padding-bottom: 100px;
     }
 }
-
 
 @media (max-width: 600px) {
     .container {
-        width: 100%; /* Take full width within .main-content */
+        width: 100%;
         padding: 15px;
         margin: 0;
         box-shadow: none;
@@ -780,39 +879,30 @@ footer {
     }
 
     header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .start-button, .button {
-        padding: 12px 25px;
-        font-size: 1.1em;
+        padding: 10px 20px;
+        font-size: 1em;
     }
 
     #reaction-area {
-        width: 200px;
-        height: 200px;
-        font-size: 1.2em;
-    }
-    
-    .floating-settings-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 2em;
-        bottom: 15px;
-        right: 15px;
+        width: 180px;
+        height: 180px;
+        font-size: 1em;
     }
 }
-/* Styles for the Modal */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1001; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1001;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
     justify-content: center;
     align-items: center;
 }
@@ -839,7 +929,7 @@ footer {
 .modal-content p {
     margin-bottom: 20px;
     font-size: 1.1em;
-    word-wrap: break-word; /* Ensures long text wraps */
+    word-wrap: break-word;
 }
 
 .close-button {
@@ -869,7 +959,7 @@ footer {
 .share-options .button {
     padding: 10px 15px;
     font-size: 0.9em;
-    flex-grow: 1; /* Allows buttons to grow and fill space */
+    flex-grow: 1;
     max-width: 150px;
     text-align: center;
 }
@@ -887,7 +977,6 @@ footer {
     background-color: #145cb3;
 }
 
-/* Styles for Comparison Messages */
 .comparison-message {
     margin-top: 10px;
     padding: 10px;
@@ -897,8 +986,8 @@ footer {
 }
 
 .comparison-message.new-best {
-    background-color: #d4edda; /* Light green */
-    color: #155724; /* Dark green */
+    background-color: #d4edda;
+    color: #155724;
     border: 1px solid #c3e6cb;
 }
 
@@ -908,10 +997,9 @@ body.dark-mode .comparison-message.new-best {
     border-color: #42b761;
 }
 
-
 .comparison-message.missed-best {
-    background-color: #fff3cd; /* Light yellow */
-    color: #856404; /* Dark yellow */
+    background-color: #fff3cd;
+    color: #856404;
     border: 1px solid #ffeeba;
 }
 
@@ -919,4 +1007,23 @@ body.dark-mode .comparison-message.missed-best {
     background-color: #ffc107;
     color: #493501;
     border-color: #ffcd38;
+}
+
+/* Animations for Results Page Card Transitions */
+@keyframes cardFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-fade-out {
+    animation: cardFadeOut 0.25s ease-out forwards;
+}
+
+.card-fade-in {
+    animation: cardFadeIn 0.25s ease-out forwards;
 }
