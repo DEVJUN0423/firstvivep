@@ -33,11 +33,13 @@
                         </select>
                         <label for="attempt-count">시도 횟수:</label>
                         <input type="number" id="attempt-count" value="1" min="1">
+                        <label for="recall-time-limit">기억 시간 (초):</label>
+                        <input type="number" id="recall-time-limit" value="5" min="1">
+                        <div id="memory-message" class="result-box">클릭하여 시작</div>
                     </div>
                     <div id="game-board" class="game-board">
                         <!-- Grid squares will be generated here -->
                     </div>
-                    <div id="memory-message" class="result-box">클릭하여 시작</div>
                     <div id="memory-score">점수: 0</div>
                     <div id="memory-result" class="result-box">
                         <!-- 최종 결과 표시 -->
