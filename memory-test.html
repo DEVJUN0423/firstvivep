@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시각적 기억력 테스트</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme-manager.js"></script>
+    <meta name="google-adsense-account" content="ca-pub-3833570049453307">
+</head>
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar sidebar-left">
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[광고 영역]</p>
+            </section>
+        </aside>
+
+        <div class="main-content">
+            <div class="container">
+                <header>
+                    <h1>시각적 기억력 테스트</h1>
+                    <p>표시된 사각형을 기억하고, 사라진 후 클릭하세요!</p>
+                </header>
+                <main>
+                    <div class="memory-test-settings">
+                        <label for="grid-size">난이도:</label>
+                        <select id="grid-size">
+                            <option value="3">쉬움 (3x3)</option>
+                            <option value="5" selected>보통 (5x5)</option>
+                            <option value="7">어려움 (7x7)</option>
+                        </select>
+                        <label for="attempt-count">시도 횟수:</label>
+                        <input type="number" id="attempt-count" value="1" min="1">
+                    </div>
+                    <div id="game-board" class="game-board">
+                        <!-- Grid squares will be generated here -->
+                    </div>
+                    <div id="memory-message" class="result-box">클릭하여 시작</div>
+                    <div id="memory-score">점수: 0</div>
+                    <div id="memory-result" class="result-box">
+                        <!-- 최종 결과 표시 -->
+                    </div>
+        
+                    <section class="back-to-main">
+                        <a href="index.html" class="button">메인으로 돌아가기</a>
+                    </section>
+                </main>
+                <footer>
+                    <p>&copy; 2026 반응 속도 테스트. All rights reserved.</p>
+                </footer>
+            </div>
+            <script src="memory-script.js"></script>
+            <a href="settings.html" class="floating-settings-btn" title="설정">⚙️</a>
+        </div>
+
+        <aside class="sidebar sidebar-right">
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[광고 영역]</p>
+            </section>
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[추가 광고 영역]</p>
+            </section>
+        </aside>
+    </div>
+</body>
+</html>

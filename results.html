@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>종합 결과</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme-manager.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <meta name="google-adsense-account" content="ca-pub-3833570049453307">
+</head>
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar sidebar-left">
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[광고 영역]</p>
+            </section>
+        </aside>
+
+        <div class="main-content">
+            <div class="container">
+                <header>
+                    <h1>종합 결과</h1>
+                    <p>당신의 게임 성적을 확인해보세요.</p>
+                </header>
+                <main>
+                    <div class="navigation-controls">
+                        <button id="prev-result" class="button" disabled>이전 결과</button>
+                        <span id="result-counter">0/0</span>
+                        <button id="next-result" class="button" disabled>다음 결과</button>
+                    </div>
+
+                    <div id="test-results-display">
+                        <div class="result-card test-result-item" id="reaction-result-card">
+                            <h2>반응 속도 테스트</h2>
+                            <div class="grade" id="reaction-grade"></div>
+                            <div class="stats" id="reaction-stats"></div>
+                            <div class="chart-container">
+                                <canvas id="reaction-chart-results"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="result-card test-result-item" id="accuracy-result-card">
+                            <h2>마우스 정확도 테스트</h2>
+                            <div class="grade" id="accuracy-grade"></div>
+                            <div class="stats" id="accuracy-stats"></div>
+                            <div class="chart-container">
+                                <canvas id="accuracy-chart-results"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="result-card test-result-item" id="click-speed-result-card">
+                            <h2>클릭 속도 테스트</h2>
+                            <div class="grade" id="click-speed-grade"></div>
+                            <div class="stats" id="click-speed-stats"></div>
+                            <!-- Click speed test might not need a chart, but keeping the container for consistency/future -->
+                            <div class="chart-container">
+                                <canvas id="click-speed-chart-results"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="result-card test-result-item" id="memory-result-card">
+                            <h2>시각적 기억력 테스트</h2>
+                            <div class="grade" id="memory-grade"></div>
+                            <div class="stats" id="memory-stats"></div>
+                            <!-- Memory test might not need a chart, or could have a simple one -->
+                            <div class="chart-container">
+                                <canvas id="memory-chart-results"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="back-to-main">
+                        <a href="index.html" class="button">메인으로 돌아가기</a>
+                    </section>
+                </main>
+                <footer>
+                    <p>&copy; 2026 반응 속도 테스트. All rights reserved.</p>
+                </footer>
+            </div>
+            <script src="results.js"></script>
+            <a href="settings.html" class="floating-settings-btn" title="설정">⚙️</a>
+        </div>
+
+        <aside class="sidebar sidebar-right">
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[광고 영역]</p>
+            </section>
+            <section class="adsense-placeholder">
+                <!-- Google AdSense 코드 여기에 삽입 -->
+                <p>[추가 광고 영역]</p>
+            </section>
+        </aside>
+    </div>
+</body>
+</html>

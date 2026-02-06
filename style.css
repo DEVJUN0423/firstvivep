@@ -1,0 +1,804 @@
+:root {
+    --bg-color: #f4f7f6;
+    --container-bg-color: #ffffff;
+    --text-color: #333;
+    --header-h1-color: #007bff;
+    --header-p-color: #555;
+    --hero-bg-color: #e0f2f7;
+    --hero-h2-color: #0056b3;
+    --adsense-bg-color: #f0f0f0;
+    --adsense-text-color: #666;
+    --features-bg-color: #f9f9f9;
+    --features-li-hover-bg-color: #e9ecef;
+    --footer-text-color: #777;
+    --border-color: #eee;
+    --button-bg-color: #007bff;
+    --button-hover-bg-color: #0056b3;
+    --selected-li-bg-color: #007bff;
+    --selected-li-text-color: white;
+    --disabled-button-bg-color: #6c757d;
+    --floating-btn-bg-color: #007bff;
+    --floating-btn-text-color: white;
+    --floating-btn-shadow: rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode {
+    --bg-color: #1a1a2e;
+    --container-bg-color: #16213e;
+    --text-color: #e0e0e0;
+    --header-h1-color: #66ccff;
+    --header-p-color: #a0a0a0;
+    --hero-bg-color: #0f3460;
+    --hero-h2-color: #a0c4ff;
+    --adsense-bg-color: #0a1128;
+    --adsense-text-color: #888;
+    --features-bg-color: #121f45;
+    --features-li-hover-bg-color: #1a3c7a;
+    --footer-text-color: #888;
+    --border-color: #333;
+    --button-bg-color: #66ccff;
+    --button-hover-bg-color: #3399ff;
+    --selected-li-bg-color: #66ccff;
+    --selected-li-text-color: #1a1a2e;
+    --disabled-button-bg-color: #4a4a4a;
+    --floating-btn-bg-color: #66ccff;
+    --floating-btn-text-color: #1a1a2e;
+    --floating-btn-shadow: rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.sidebar {
+    width: 200px; /* Adjust width as needed */
+    padding: 20px;
+}
+
+.sidebar-left { order: 1; }
+.main-content { order: 2; flex-grow: 1; max-width: 800px; }
+.sidebar-right { order: 3; }
+
+/* In the original CSS, .container had margin and width. We need to adjust this. */
+.container {
+    background-color: var(--container-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* width: 90%; This is now controlled by .main-content */
+    /* max-width: 800px; This is now controlled by .main-content */
+    margin: 20px 0; /* Remove horizontal auto margin */
+    padding: 30px;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    color: var(--header-h1-color);
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1em;
+    color: var(--header-p-color);
+}
+
+main {
+    margin-bottom: 30px;
+}
+
+.hero-section {
+    padding: 40px 20px;
+    background-color: var(--hero-bg-color);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.hero-section h2 {
+    color: var(--hero-h2-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.start-button, .button {
+    display: inline-block;
+    background-color: var(--button-bg-color);
+    color: var(--floating-btn-text-color); /* To make dark mode text more readable */
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.start-button:hover, .button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.adsense-placeholder {
+    margin: 0 0 20px 0; /* Adjusted margin for sidebars */
+    padding: 20px;
+    background-color: var(--adsense-bg-color);
+    border-radius: 8px;
+    color: var(--adsense-text-color);
+    font-style: italic;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.features-placeholder {
+    margin-top: 50px;
+    padding: 30px 20px;
+    background-color: var(--features-bg-color);
+    border-radius: 8px;
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-top-color 0.3s ease;
+}
+
+.features-placeholder h2 {
+    color: var(--text-color); /* Use general text color */
+    margin-bottom: 20px;
+}
+
+.features-placeholder ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features-placeholder li {
+    margin-bottom: 10px;
+    color: var(--header-p-color); /* Use a slightly muted text color */
+    padding: 8px 15px; /* Add padding for better click area */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.features-placeholder li:hover {
+    background-color: var(--features-li-hover-bg-color);
+}
+
+.features-placeholder li.selected {
+    background-color: var(--selected-li-bg-color);
+    color: var(--selected-li-text-color);
+    font-weight: bold;
+}
+
+/* Disabled state for start button */
+.start-button.disabled {
+    background-color: var(--disabled-button-bg-color);
+    cursor: not-allowed;
+}
+
+.start-button.disabled:hover {
+    background-color: var(--disabled-button-bg-color); /* No hover effect for disabled */
+}
+
+/* Settings Page Specific Styles */
+.settings-section {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.settings-section h2 {
+    color: var(--hero-h2-color);
+    margin-bottom: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item span {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.setting-item .note {
+    font-size: 0.85em;
+    color: var(--header-p-color);
+    margin-top: 5px;
+}
+
+/* Toggle Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* Reaction Test Specific Styles */
+#reaction-area {
+    width: 250px;
+    height: 250px;
+    background-color: #ccc; /* Default grey */
+    margin: 50px auto;
+    border-radius: 50%; /* Circle shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    user-select: none; /* Prevent text selection */
+}
+
+#reaction-area.ready {
+    background-color: #007bff; /* Blue for "Click to Start" */
+}
+
+#reaction-area.wait {
+    background-color: #ffc107; /* Orange for "Wait" */
+    color: #333;
+}
+
+#reaction-area.go {
+    background-color: #28a745; /* Green for "Go" */
+}
+
+
+.result-box {
+    margin-top: 30px;
+    font-size: 1.3em;
+    color: var(--header-h1-color); /* Use theme color */
+    font-weight: bold;
+}
+
+.result-box.error {
+    color: #dc3545; /* Red for "Too Soon" */
+}
+
+/* New styles for multi-attempt test */
+.test-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.test-controls label {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.test-controls input[type="number"] {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 80px;
+    text-align: center;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+}
+
+.test-controls button {
+    /* Reusing .button style, but can override if needed */
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+#average-result {
+    margin-top: 20px;
+    font-size: 1.4em;
+    color: var(--header-h1-color);
+    font-weight: bold;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: var(--container-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#reaction-chart {
+    background-color: var(--container-bg-color); /* Ensure chart background matches theme */
+}
+
+/* Accuracy Test Specific Styles */
+#game-area {
+    width: 100%;
+    height: 400px;
+    background-color: var(--hero-bg-color); /* Using theme variable */
+    border: 2px solid var(--button-bg-color); /* Using theme variable */
+    border-radius: 8px;
+    margin: 30px auto;
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.target {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #dc3545; /* Red target */
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.1s ease-out;
+}
+
+.target.hit {
+    background-color: #28a745; /* Green when hit */
+    transform: scale(0.8);
+}
+
+#accuracy-score, #accuracy-timer {
+    font-size: 1.4em;
+    margin-top: 20px;
+    color: var(--header-h1-color); /* Using theme variable */
+    font-weight: bold;
+}
+
+.start-accuracy-button {
+    margin-top: 20px;
+    background-color: #28a745;
+}
+
+.start-accuracy-button:hover {
+    background-color: #218838;
+}
+
+/* New styles for Accuracy Test settings */
+.game-settings {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--container-bg-color);
+}
+
+.difficulty-selection, .time-setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.game-settings label {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+.difficulty-selection input[type="radio"] {
+    margin-left: 10px;
+}
+
+.time-setting input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 70px;
+    text-align: center;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+}
+
+/* Mouse Click Speed Test Specific Styles */
+.click-test-settings {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--container-bg-color);
+}
+
+.click-test-settings label {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+.click-test-settings input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 70px;
+    text-align: center;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+}
+
+#click-area {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    background-color: var(--button-bg-color); /* Blue for clickable area */
+    margin: 30px auto;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    user-select: none;
+}
+
+#click-area.playing {
+    background-color: #28a745; /* Green when playing */
+}
+
+#click-count, #click-timer {
+    font-size: 1.4em;
+    margin-top: 20px;
+    color: var(--header-h1-color);
+    font-weight: bold;
+}
+
+/* Visual Memory Test Specific Styles */
+.memory-test-settings {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--container-bg-color);
+}
+
+.memory-test-settings label {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-right: 5px;
+}
+
+.memory-test-settings select,
+.memory-test-settings input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+}
+
+#game-board {
+    display: grid;
+    gap: 5px;
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    margin: 30px auto;
+    padding: 5px;
+    background-color: var(--border-color);
+    border-radius: 8px;
+}
+
+.grid-square {
+    width: 100%;
+    padding-bottom: 100%; /* Makes squares responsive */
+    background-color: var(--container-bg-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    position: relative;
+}
+
+#game-board.active .grid-square:hover {
+    transform: scale(0.95);
+}
+
+.grid-square.highlight {
+    background-color: var(--button-bg-color); /* Highlight color */
+}
+
+.grid-square.correct {
+    background-color: #28a745; /* Green for correct click */
+}
+
+.grid-square.incorrect {
+    background-color: #dc3545; /* Red for incorrect click */
+}
+
+#memory-message, #memory-score {
+    font-size: 1.4em;
+    margin-top: 20px;
+    color: var(--header-h1-color);
+    font-weight: bold;
+}
+
+/* Styles for index.html hero section buttons */
+.start-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Adds space between buttons */
+    margin-top: 20px;
+    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+}
+
+
+/* Styles for results.html */
+.navigation-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.navigation-controls button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--floating-btn-text-color);
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-controls button:hover:not(:disabled) {
+    background-color: var(--button-hover-bg-color);
+}
+
+.navigation-controls button:disabled {
+    background-color: var(--disabled-button-bg-color);
+    cursor: not-allowed;
+}
+
+#result-counter {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+#test-results-display {
+    display: flex;
+    flex-direction: column; /* Stack results vertically */
+    gap: 30px; /* Space between stacked cards */
+    margin-top: 20px;
+}
+
+.result-card {
+    padding: 25px;
+    background-color: var(--features-bg-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.result-card h2 {
+    color: var(--header-h1-color);
+    margin-bottom: 20px;
+}
+
+.grade {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--hero-h2-color);
+    margin-bottom: 15px;
+}
+
+.stats p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin: 5px 0;
+}
+
+.back-to-main {
+    margin-top: 40px;
+}
+
+footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--footer-text-color);
+    font-size: 0.9em;
+}
+
+/* Page transition animation */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Floating Settings Button */
+.floating-settings-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--floating-btn-bg-color);
+    color: var(--floating-btn-text-color);
+    font-size: 2.5em; /* Larger emoji */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px var(--floating-btn-shadow);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+}
+
+.floating-settings-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--button-hover-bg-color); /* Reuse existing hover color variable */
+}
+
+/* Media Queries for Responsive Layout */
+
+/* For tablet and larger */
+@media (min-width: 769px) {
+    /* Sidebars are visible */
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: 3; /* Move sidebars to the bottom */
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .main-content {
+        order: 1; /* Main content first */
+    }
+
+    .sidebar-left {
+        display: none; /* Can hide one sidebar on mobile to avoid clutter */
+    }
+}
+
+
+@media (max-width: 600px) {
+    .container {
+        width: 100%; /* Take full width within .main-content */
+        padding: 15px;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    .start-button, .button {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+
+    #reaction-area {
+        width: 200px;
+        height: 200px;
+        font-size: 1.2em;
+    }
+    
+    .floating-settings-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 2em;
+        bottom: 15px;
+        right: 15px;
+    }
+}
