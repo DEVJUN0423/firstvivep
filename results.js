@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevButton = document.getElementById('prev-result');
     const nextButton = document.getElementById('next-result');
     const resultCounter = document.getElementById('result-counter');
+    const shareButton = document.getElementById('share-result'); // New
+    const shareModal = document.getElementById('share-modal'); // New
+    const closeButton = shareModal.querySelector('.close-button'); // New
+    const shareTextDisplay = document.getElementById('share-text-display'); // New
+    const copyShareLinkButton = document.getElementById('copy-share-link'); // New
+    const shareTwitterButton = document.getElementById('share-twitter'); // New
+    const shareFacebookButton = document.getElementById('share-facebook'); // New
+
 
     // Configuration for each test type, crucial for extensibility
     const testTypesConfig = [
@@ -13,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gradeElId: 'reaction-grade',
             statsElId: 'reaction-stats',
             chartCanvasId: 'reaction-chart-results',
-            chartInstance: null // Will store Chart.js instance
+            chartInstance: null,
+            comparisonMetric: 'average', // Lower is better
+            metricUnit: 'ms'
         },
         {
             id: 'accuracy',
@@ -23,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gradeElId: 'accuracy-grade',
             statsElId: 'accuracy-stats',
             chartCanvasId: 'accuracy-chart-results',
-            chartInstance: null
+            chartInstance: null,
+            comparisonMetric: 'score', // Higher is better
+            metricUnit: '점'
         },
         {
             id: 'click',
@@ -33,7 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gradeElId: 'click-speed-grade',
             statsElId: 'click-speed-stats',
             chartCanvasId: 'click-speed-chart-results',
-            chartInstance: null
+            chartInstance: null,
+            comparisonMetric: 'cps', // Higher is better
+            metricUnit: 'CPS'
         },
         {
             id: 'memory',
@@ -43,122 +57,270 @@ document.addEventListener('DOMContentLoaded', () => {
             gradeElId: 'memory-grade',
             statsElId: 'memory-stats',
             chartCanvasId: 'memory-chart-results',
-            chartInstance: null
+            chartInstance: null,
+            comparisonMetric: 'finalScore', // Higher is better
+            metricUnit: '점'
         }
         // Add more test types here as they are developed
     ];
 
     let currentTestTypeIndex = 0; // Index for navigating through testTypesConfig
+    let currentDisplayedResultData = null; // Store data of the currently displayed best result for sharing
 
-    function loadAndRenderCurrentResult() {
-        const currentConfig = testTypesConfig[currentTestTypeIndex];
+    function renderComparisonMessage(currentResult, bestResult, config) {
+        const resultCardEl = document.getElementById(config.cardId);
+        if (!resultCardEl) return;
 
-        // Hide all test result cards first
-        document.querySelectorAll('.test-result-item').forEach(card => {
-            card.style.display = 'none';
-        });
+        // Remove any existing comparison message
+        const existingMsg = resultCardEl.querySelector('.comparison-message');
+        if (existingMsg) existingMsg.remove();
 
-        // Show only the current test type's card
-        const resultCardEl = document.getElementById(currentConfig.cardId);
-        if (resultCardEl) {
-            resultCardEl.style.display = 'block';
+        const gradeEl = document.getElementById(config.gradeElId);
+        if (!gradeEl) return;
+
+        let message = '';
+        const currentMetric = currentResult[config.comparisonMetric];
+        const bestMetric = bestResult[config.comparisonMetric];
+
+        const isNewBest = (config.comparisonMetric === 'average' && currentMetric < bestMetric) || 
+                          (config.comparisonMetric !== 'average' && currentMetric > bestMetric);
+
+        if (isNewBest) {
+            message = `<div class="comparison-message new-best">🎉 새로운 최고 기록입니다!</div>`;
+        } else {
+            const diff = Math.abs(currentMetric - bestMetric).toFixed(2);
+            const comparisonText = config.comparisonMetric === 'average' ? '느립니다' : '낮습니다';
+            message = `<div class="comparison-message missed-best">아쉽네요! 최고 기록보다 ${diff}${config.metricUnit} ${comparisonText}.</div>`;
         }
 
-        const gradeEl = document.getElementById(currentConfig.gradeElId);
-        const statsEl = document.getElementById(currentConfig.statsElId);
+        gradeEl.insertAdjacentHTML('afterend', message);
+    }
+
+    function generateShareMessage(config, resultData) {
+        let message = `${config.name} - 등급: ${resultData.grade}! `;
+        switch (config.id) {
+            case 'reaction':
+                message += `평균 반응 속도: ${resultData.average.toFixed(2)}ms.`;
+                break;
+            case 'accuracy':
+                message += `최종 점수: ${resultData.score}점, 명중률: ${resultData.accuracy}%.`;
+                break;
+            case 'click':
+                message += `초당 클릭 수 (CPS): ${resultData.cps}.`;
+                break;
+            case 'memory':
+                message += `최종 점수: ${resultData.finalScore}점, 정답 ${resultData.totalCorrectClicks}개.`;
+                break;
+            default:
+                message += `내 점수를 확인해보세요!`;
+        }
+        message += ` #반응속도테스트 #집중력테스트`; // Hashtags for virality
+        return message;
+    }
+
+    function openShareModal(message, shareUrl) {
+        shareModal.style.display = 'flex'; // Use flex to center content
+        shareTextDisplay.textContent = message;
+
+        // Set Twitter/Facebook share links
+        const twitterText = encodeURIComponent(message + ' ' + shareUrl);
+        shareTwitterButton.href = `https://twitter.com/intent/tweet?text=${twitterText}`;
+
+        const facebookShareUrl = encodeURIComponent(shareUrl);
+        shareFacebookButton.href = `https://www.facebook.com/sharer/sharer.php?u=${facebookShareUrl}&quote=${encodeURIComponent(message)}`;
+    }
+
+    function closeShareModal() {
+        shareModal.style.display = 'none';
+    }
+
+    async function copyLinkToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('링크가 클립보드에 복사되었습니다!');
+        } catch (err) {
+            console.error('클립보드 복사 실패:', err);
+            alert('링크 복사에 실패했습니다. 수동으로 복사해주세요: ' + text);
+        }
+    }
+
+    // Main sharing function
+    async function shareCurrentResult() {
+        const config = testTypesConfig[currentTestTypeIndex];
+        const resultData = JSON.parse(localStorage.getItem(config.localStorageKey)); // Always share the best result
+
+        if (!resultData) {
+            alert('공유할 기록이 없습니다. 먼저 테스트를 완료해주세요!');
+            return;
+        }
+
+        const shareMessage = generateShareMessage(config, resultData);
+        const appUrl = window.location.origin + '/index.html'; // Base URL for the app
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '반응 속도 테스트 결과',
+                    text: shareMessage,
+                    url: appUrl,
+                });
+                console.log('결과가 성공적으로 공유되었습니다!');
+            } catch (error) {
+                console.error('공유 실패:', error);
+                // Fallback to modal if native share fails or is dismissed
+                openShareModal(shareMessage, appUrl);
+            }
+        } else {
+            // Fallback for browsers that do not support navigator.share
+            openShareModal(shareMessage, appUrl);
+        }
+    }
+
+
+    function loadAndRenderAllResults() {
+        const currentTestResult = JSON.parse(localStorage.getItem('currentTestResult'));
+        let testJustCompleted = false;
+
+        if (currentTestResult && currentTestResult.type) {
+            const configIndex = testTypesConfig.findIndex(t => t.id === currentTestResult.type);
+            if (configIndex !== -1) {
+                currentTestTypeIndex = configIndex; // Navigate to the result of the test just played
+                testJustCompleted = true;
+            }
+        }
         
-        const bestResult = JSON.parse(localStorage.getItem(currentConfig.localStorageKey));
+        // Render all cards initially to have them ready
+        testTypesConfig.forEach(config => {
+            renderCard(config, currentTestResult && currentTestResult.type === config.id ? currentTestResult : null);
+        });
+
+        // After rendering, handle navigation and display
+        updateNavigationState();
+        showCurrentCard();
+
+        if (testJustCompleted) {
+            localStorage.removeItem('currentTestResult'); // Clean up after use
+        }
+    }
+
+    function renderCard(config, currentResult) {
+        const resultCardEl = document.getElementById(config.cardId);
+        if (!resultCardEl) return;
+
+        const gradeEl = document.getElementById(config.gradeElId);
+        const statsEl = document.getElementById(config.statsElId);
+        
+        const bestResult = JSON.parse(localStorage.getItem(config.localStorageKey));
+        currentDisplayedResultData = bestResult; // Update global variable for sharing
 
         if (bestResult) {
             gradeEl.textContent = `등급: ${bestResult.grade}`;
-            
-            // Render stats based on test type
-            if (currentConfig.id === 'reaction') {
-                statsEl.innerHTML = `
-                    <p>기록 날짜: ${bestResult.date}</p>
-                    <p>평균 반응 속도: ${bestResult.average.toFixed(2)}ms</p>
-                `;
-                // Reaction chart uses reactionTimes data
-                updateChart(currentConfig, bestResult.reactionTimes, 'line', '반응 시간 (ms)', '시도 횟수', 'rgb(75, 192, 192)');
-            } else if (currentConfig.id === 'accuracy') {
-                statsEl.innerHTML = `
-                    <p>기록 날짜: ${bestResult.date}</p>
-                    <p>난이도: ${bestResult.difficulty}</p>
-                    <p>최종 점수: ${bestResult.score}</p>
-                    <p>명중률: ${bestResult.accuracy}%</p>
-                    <p>평균 반응 시간: ${bestResult.avgReactionTime}ms</p>
-                `;
-                // Accuracy chart uses reactionTimes data
-                updateChart(currentConfig, bestResult.reactionTimes, 'line', '반응 시간 (ms)', '명중 횟수', 'rgb(255, 99, 132)');
-            } else if (currentConfig.id === 'click') {
-                statsEl.innerHTML = `
-                    <p>기록 날짜: ${bestResult.date}</p>
-                    <p>총 클릭 수: ${bestResult.clickCount}</p>
-                    <p>테스트 시간: ${bestResult.gameDuration}초</p>
-                    <p>초당 클릭 수 (CPS): ${bestResult.cps}</p>
-                `;
-                // Click speed chart can show CPS as a single bar
-                updateChart(currentConfig, [parseFloat(bestResult.cps)], 'bar', '초당 클릭 수', 'CPS', 'rgb(54, 162, 235)');
-            } else if (currentConfig.id === 'memory') {
-                statsEl.innerHTML = `
-                    <p>기록 날짜: ${bestResult.date}</p>
-                    <p>최종 점수: ${bestResult.finalScore}</p>
-                    <p>정답: ${bestResult.correctClicks}개</p>
-                    <p>오답: ${bestResult.incorrectClicks}개</p>
-                    <p>격자 크기: ${bestResult.gridSize}x${bestResult.gridSize}</p>
-                    <p>표시된 사각형 수: ${bestResult.numToHighlight}개</p>
-                `;
-                // Memory test could have a bar chart of correct vs incorrect or just display stats
-                updateChart(currentConfig, [bestResult.correctClicks, bestResult.incorrectClicks], 'bar', '클릭 수', '정답/오답', ['rgb(40, 167, 69)', 'rgb(220, 53, 69)'], ['정답', '오답']);
+
+            // If a recent test was just completed, show comparison message
+            if (currentResult) {
+                renderComparisonMessage(currentResult, bestResult, config);
             }
+            
+            // Render stats and chart based on BEST result
+            renderStatsAndChart(config, bestResult, statsEl);
+
+        } else if (currentResult) {
+            // This case handles the very first run of a test
+            gradeEl.textContent = `등급: ${currentResult.grade}`;
+            const newBestMsg = `<div class="comparison-message new-best">🎉 첫 기록! 새로운 최고 기록입니다!</div>`;
+            gradeEl.insertAdjacentHTML('afterend', newBestMsg);
+            renderStatsAndChart(config, currentResult, statsEl);
+            currentDisplayedResultData = currentResult; // First result is also the best
         } else {
             gradeEl.textContent = '기록 없음';
-            statsEl.innerHTML = `<p>${currentConfig.name} 최고 기록을 달성해보세요!</p>`;
-            clearChart(currentConfig);
+            statsEl.innerHTML = `<p>${config.name} 최고 기록을 달성해보세요!</p>`;
+            clearChart(config);
+            currentDisplayedResultData = null; // No data to share
         }
-
-        updateNavigationState();
     }
 
-    function updateChart(config, data, chartType, labelY, labelX, borderColor) {
+    function renderStatsAndChart(config, resultData, statsEl) {
+        if (config.id === 'reaction') {
+            statsEl.innerHTML = `
+                <p>기록 날짜: ${resultData.date}</p>
+                <p>평균 반응 속도: ${resultData.average.toFixed(2)}ms</p>
+            `;
+            updateChart(config, {
+                labels: resultData.reactionTimes.map((_, i) => `시도 ${i + 1}`),
+                datasets: [{ label: '반응 시간 (ms)', data: resultData.reactionTimes }]
+            }, 'line');
+        } else if (config.id === 'accuracy') {
+            statsEl.innerHTML = `
+                <p>기록 날짜: ${resultData.date}</p>
+                <p>난이도: ${resultData.difficulty}</p>
+                <p>최종 점수: ${resultData.score}</p>
+                <p>명중률: ${resultData.accuracy}%</p>
+                <p>평균 반응 시간: ${resultData.avgReactionTime}ms</p>
+            `;
+            updateChart(config, {
+                labels: resultData.reactionTimes.map((_, i) => `명중 ${i + 1}`),
+                datasets: [{ label: '반응 시간 (ms)', data: resultData.reactionTimes }]
+            }, 'line');
+        } else if (config.id === 'click') {
+            statsEl.innerHTML = `
+                <p>기록 날짜: ${resultData.date}</p>
+                <p>총 클릭 수: ${resultData.clickCount}</p>
+                <p>테스트 시간: ${resultData.gameDuration}초</p>
+                <p>초당 클릭 수 (CPS): ${resultData.cps}</p>
+            `;
+            updateChart(config, {
+                labels: ['CPS'],
+                datasets: [{ label: '초당 클릭 수', data: [parseFloat(resultData.cps)] }]
+            }, 'bar');
+        } else if (config.id === 'memory') {
+            statsEl.innerHTML = `
+                <p>기록 날짜: ${resultData.date}</p>
+                <p>최종 점수: ${resultData.finalScore}</p>
+                <p>총 정답: ${resultData.totalCorrectClicks}개</p>
+                <p>총 오답: ${resultData.totalIncorrectClicks}개</p>
+                <p>난이도: ${resultData.gridSize}x${resultData.gridSize}</p>
+            `;
+            const chartData = {
+                labels: ['정답', '오답'],
+                datasets: [{
+                    label: '클릭 수',
+                    data: [resultData.totalCorrectClicks, resultData.totalIncorrectClicks],
+                    backgroundColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)']
+                }]
+            };
+            updateChart(config, chartData, 'bar');
+        }
+    }
+
+
+    function updateChart(config, chartData, chartType) {
         const chartCanvas = document.getElementById(config.chartCanvasId);
         if (!chartCanvas) return;
 
-        // Destroy existing chart instance if it exists
         if (config.chartInstance) {
             config.chartInstance.destroy();
-            config.chartInstance = null;
         }
 
         const ctx = chartCanvas.getContext('2d');
         config.chartInstance = new Chart(ctx, {
             type: chartType,
-            data: {
-                labels: data.map((_, i) => `${i + 1}`),
-                datasets: [{
-                    label: labelY,
-                    data: data,
-                    borderColor: borderColor,
-                    backgroundColor: borderColor, // For bar charts
-                    tension: chartType === 'line' ? 0.1 : 0,
-                    fill: false
-                }]
-            },
+            data: chartData,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: { display: true, text: labelY }
+                        title: { display: chartData.datasets.length === 1, text: chartData.datasets[0].label }
                     },
                     x: {
-                        title: { display: true, text: labelX }
+                        title: { display: false }
                     }
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: chartData.datasets.length > 1 || chartType === 'bar', // Better legend handling
+                        position: 'top'
                     }
                 }
             }
@@ -172,26 +334,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function showCurrentCard() {
+        // Hide all cards
+        document.querySelectorAll('.test-result-item').forEach(card => {
+            card.style.display = 'none';
+        });
+        // Show the current one
+        const currentCardId = testTypesConfig[currentTestTypeIndex].cardId;
+        const currentCard = document.getElementById(currentCardId);
+        if (currentCard) {
+            currentCard.style.display = 'block';
+        }
+        // Update share button's status based on whether there's data to share
+        const config = testTypesConfig[currentTestTypeIndex];
+        const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+        if (resultData) {
+            shareButton.disabled = false;
+        } else {
+            shareButton.disabled = true;
+        }
+    }
+    
     function updateNavigationState() {
-        resultCounter.textContent = `${testTypesConfig[currentTestTypeIndex].name} (${currentTestTypeIndex + 1}/${testTypesConfig.length})`;
+        resultCounter.textContent = `${testTypesConfig[currentTestTypeIndex].name}`;
         prevButton.disabled = currentTestTypeIndex === 0;
         nextButton.disabled = currentTestTypeIndex === testTypesConfig.length - 1;
     }
 
+    // Event Listeners for navigation
     prevButton.addEventListener('click', () => {
         if (currentTestTypeIndex > 0) {
             currentTestTypeIndex--;
-            loadAndRenderCurrentResult();
+            showCurrentCard();
+            updateNavigationState();
         }
     });
 
     nextButton.addEventListener('click', () => {
         if (currentTestTypeIndex < testTypesConfig.length - 1) {
             currentTestTypeIndex++;
-            loadAndRenderCurrentResult();
+            showCurrentCard();
+            updateNavigationState();
         }
     });
 
+    // Event Listeners for sharing
+    shareButton.addEventListener('click', shareCurrentResult);
+
+    closeButton.addEventListener('click', closeShareModal);
+    shareModal.addEventListener('click', (event) => {
+        if (event.target === shareModal) {
+            closeShareModal();
+        }
+    });
+    copyShareLinkButton.addEventListener('click', () => {
+        const config = testTypesConfig[currentTestTypeIndex];
+        const appUrl = window.location.origin + '/index.html';
+        copyLinkToClipboard(appUrl);
+    });
+
+
     // Initial load
-    loadAndRenderCurrentResult();
+    loadAndRenderAllResults();
 });

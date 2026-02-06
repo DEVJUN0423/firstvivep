@@ -29,6 +29,7 @@
                         <button id="prev-result" class="button" disabled>이전 결과</button>
                         <span id="result-counter">0/0</span>
                         <button id="next-result" class="button" disabled>다음 결과</button>
+                        <button id="share-result" class="button">공유하기</button>
                     </div>
 
                     <div id="test-results-display">
@@ -67,6 +68,18 @@
                             <!-- Memory test might not need a chart, or could have a simple one -->
                             <div class="chart-container">
                                 <canvas id="memory-chart-results"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="share-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-button">&times;</span>
+                            <h3>결과 공유하기</h3>
+                            <p id="share-text-display"></p>
+                            <div class="share-options">
+                                <button id="copy-share-link" class="button">링크 복사</button>
+                                <a id="share-twitter" href="#" target="_blank" class="button social-share twitter">Twitter</a>
+                                <a id="share-facebook" href="#" target="_blank" class="button social-share facebook">Facebook</a>
                             </div>
                         </div>
                     </div>

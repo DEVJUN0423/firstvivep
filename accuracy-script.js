@@ -109,15 +109,19 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         const newResult = {
-            id: new Date().getTime(), // Unique ID for each test result
-            date: new Date().toLocaleString(), // Timestamp for when the test was completed
+            id: new Date().getTime(),
+            date: new Date().toLocaleString(),
+            type: 'accuracy', // Add type for generic handling
             grade: grade,
-            score: score, // The composite score from getAccuracyGrade
+            score: score,
             accuracy: accuracy,
             avgReactionTime: avgReactionTime.toFixed(2),
             reactionTimes: hitReactionTimes,
             difficulty: currentDifficulty
         };
+
+        // Save current result for immediate feedback on the results page
+        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
         
         // Retrieve the current best result
         let bestAccuracyResult = JSON.parse(localStorage.getItem('bestAccuracyTestResult'));

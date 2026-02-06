@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newResult = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
+            type: 'memory', // Add type for generic handling
             grade: grade,
             finalScore: finalScore,
             totalCorrectClicks: totalCorrect,
@@ -200,6 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
             totalAttempts: totalAttempts,
             attemptDetails: allAttemptsResults // Keep details of each attempt
         };
+
+        // Save current result for immediate feedback on the results page
+        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
 
         let bestMemoryResult = JSON.parse(localStorage.getItem('bestMemoryTestResult'));
 

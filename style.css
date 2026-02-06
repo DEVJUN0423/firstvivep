@@ -802,3 +802,121 @@ footer {
         right: 15px;
     }
 }
+/* Styles for the Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--container-bg-color);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.modal-content h3 {
+    color: var(--header-h1-color);
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    word-wrap: break-word; /* Ensures long text wraps */
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.share-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.share-options .button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    flex-grow: 1; /* Allows buttons to grow and fill space */
+    max-width: 150px;
+    text-align: center;
+}
+
+.share-options .social-share.twitter {
+    background-color: #1DA1F2;
+}
+.share-options .social-share.twitter:hover {
+    background-color: #0c85d0;
+}
+.share-options .social-share.facebook {
+    background-color: #1877F2;
+}
+.share-options .social-share.facebook:hover {
+    background-color: #145cb3;
+}
+
+/* Styles for Comparison Messages */
+.comparison-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.comparison-message.new-best {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green */
+    border: 1px solid #c3e6cb;
+}
+
+body.dark-mode .comparison-message.new-best {
+    background-color: #28a745;
+    color: #e2f0e6;
+    border-color: #42b761;
+}
+
+
+.comparison-message.missed-best {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404; /* Dark yellow */
+    border: 1px solid #ffeeba;
+}
+
+body.dark-mode .comparison-message.missed-best {
+    background-color: #ffc107;
+    color: #493501;
+    border-color: #ffcd38;
+}

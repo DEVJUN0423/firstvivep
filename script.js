@@ -128,45 +128,34 @@ document.addEventListener('DOMContentLoaded', () => {
     function endMultiAttemptTest() {
         const validReactionTimes = reactionTimes.filter(time => time > 0);
         let average = 0;
-        let grade = "N/A";
+        let grade = "F"; // Default to F
 
         if (validReactionTimes.length > 0) {
             const sum = validReactionTimes.reduce((a, b) => a + b, 0);
             average = sum / validReactionTimes.length;
             grade = getReactionGrade(average);
-            
-            // Create the new result object
-            const newResult = {
-                id: new Date().getTime(), // Unique ID for each test result
-                date: new Date().toLocaleString(), // Timestamp for when the test was completed
-                grade: grade,
-                average: average,
-                reactionTimes: validReactionTimes
-            };
-            
-            // Retrieve the current best result
-            let bestReactionResult = JSON.parse(localStorage.getItem('bestReactionTestResult'));
+        }
 
-            // Compare and update if the new result is better
-            if (!bestReactionResult || newResult.average < bestReactionResult.average) {
-                localStorage.setItem('bestReactionTestResult', JSON.stringify(newResult));
-            }
-            
-        } else {
-            // If no valid attempts, still create a result, but don't overwrite a valid best score
-            const newResult = {
-                id: new Date().getTime(),
-                date: new Date().toLocaleString(),
-                grade: 'F', 
-                average: 0, 
-                reactionTimes: []
-            };
+        // Create a single, standardized newResult object
+        const newResult = {
+            id: new Date().getTime(),
+            date: new Date().toLocaleString(),
+            type: 'reaction', // Add type for generic handling
+            grade: grade,
+            average: average,
+            reactionTimes: validReactionTimes
+        };
 
-            // Only store if there's no valid best result, or if this invalid result is "better" than a previously stored invalid one (e.g. initial F)
-            let bestReactionResult = JSON.parse(localStorage.getItem('bestReactionTestResult'));
-            if (!bestReactionResult || (bestReactionResult.grade === 'F' && newResult.average < bestReactionResult.average)) { // For 'F' scores, a lower average might still be preferable
-                localStorage.setItem('bestReactionTestResult', JSON.stringify(newResult));
-            }
+        // Save the current result for immediate feedback on the results page
+        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
+
+        // Retrieve the current best result to compare against
+        let bestReactionResult = JSON.parse(localStorage.getItem('bestReactionTestResult'));
+
+        // Compare and update if the new result is better (lower average is better)
+        // Or if there's no best result yet. Don't save an 'F' grade over a valid best score.
+        if (!bestReactionResult || (newResult.grade !== 'F' && newResult.average < bestReactionResult.average) || !bestReactionResult.reactionTimes.length) {
+            localStorage.setItem('bestReactionTestResult', JSON.stringify(newResult));
         }
 
         resultBox.textContent = '연속 테스트 완료!';

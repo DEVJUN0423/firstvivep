@@ -75,11 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const newResult = {
             id: new Date().getTime(),
             date: new Date().toLocaleString(),
+            type: 'click', // Add type for generic handling
             grade: grade,
             clickCount: clickCount,
             cps: cps.toFixed(2),
             gameDuration: gameDuration
         };
+
+        // Save current result for immediate feedback on the results page
+        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
 
         let bestClickResult = JSON.parse(localStorage.getItem('bestClickTestResult'));
 
