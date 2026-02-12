@@ -2,24 +2,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const reactionArea = document.getElementById('reaction-area');
     const resultBox = document.getElementById('result');
     const numAttemptsInput = document.getElementById('num-attempts');
-    const averageResultBox = document.getElementById('average-result'); // Still reference, but innerHTML is removed
+    const averageResultBox = document.getElementById('average-result');
 
-    let totalAttempts = 0; // This will now be set by initMultiAttemptTest
+    let totalAttempts = 0;
     let validReactionTimes = [];
     let isMultiTestActive = false;
     let completedAttempts = 0;
 
     if (!reactionArea || !resultBox || !numAttemptsInput || !averageResultBox) {
-        console.error('One or more required elements for Reaction Test not found. Script may not function correctly.');
+        console.error('One or more required elements for Reaction Test not found.');
         return;
     }
+
+    const REACTION_GRADE_THRESHOLDS = [
+        { threshold: 150, grade: 'S' },
+        { threshold: 200, grade: 'A' },
+        { threshold: 250, grade: 'B' },
+        { threshold: 350, grade: 'C' },
+        { threshold: 450, grade: 'D' }
+    ];
 
     const singleTestState = {
         startTime: null,
         endTime: null,
         timeoutId: null,
-        state: 'ready' // 'ready', 'waiting', 'go'
+        state: 'ready'
     };
+
+    function getStartText() {
+        return parseInt(numAttemptsInput.value, 10) > 1 ? '클릭하여 테스트 시작' : '클릭하여 시작';
+    }
 
     function resetSingleTest() {
         clearTimeout(singleTestState.timeoutId);
@@ -34,11 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reactionArea.classList.remove('ready');
         reactionArea.classList.add('wait');
         reactionArea.textContent = '초록색을 기다리세요...';
-        if (totalAttempts > 1) { // Only show attempt count if it's a multi-attempt test
-            resultBox.textContent = `시도 ${completedAttempts + 1}/${totalAttempts}`;
-        } else {
-            resultBox.textContent = ''; // Clear for single test
-        }
+        resultBox.textContent = totalAttempts > 1 ? `시도 ${completedAttempts + 1}/${totalAttempts}` : '';
         resultBox.classList.remove('error');
 
         const randomDelay = Math.floor(Math.random() * 3000) + 1500;
@@ -47,34 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
             reactionArea.classList.remove('wait');
             reactionArea.classList.add('go');
             reactionArea.textContent = '클릭!';
-            singleTestState.startTime = new Date().getTime();
+            singleTestState.startTime = AppUtils.now();
         }, randomDelay);
     }
 
     function handleReactionClickLogic() {
         if (singleTestState.state === 'waiting') {
-            // Early click: Abort current multi-attempt series
             clearTimeout(singleTestState.timeoutId);
-            
-            isMultiTestActive = false; // Reset multi-test flag
-            numAttemptsInput.disabled = false; // Re-enable input
-            validReactionTimes = []; // Clear recorded times
-            completedAttempts = 0; // Reset completed attempts count
 
-            resetSingleTest(); // Reset visual state and singleTestState.state to 'ready'
-            resultBox.textContent = `너무 일찍 클릭했습니다! 시도 횟수를 변경하거나 다시 시작하세요.`;
+            isMultiTestActive = false;
+            numAttemptsInput.disabled = false;
+            validReactionTimes = [];
+            completedAttempts = 0;
+
+            resetSingleTest();
+            resultBox.textContent = '너무 일찍 클릭했습니다! 시도 횟수를 변경하거나 다시 시작하세요.';
             resultBox.classList.add('error');
-            
-            // Set initial message based on current numAttemptsInput value
-            if (parseInt(numAttemptsInput.value, 10) > 1) {
-                reactionArea.textContent = '클릭하여 테스트 시작';
-            } else {
-                reactionArea.textContent = '클릭하여 시작';
-            }
+            reactionArea.textContent = getStartText();
 
         } else if (singleTestState.state === 'go') {
-            singleTestState.endTime = new Date().getTime();
-            const reactionTime = singleTestState.endTime - singleTestState.startTime;
+            singleTestState.endTime = AppUtils.now();
+            const reactionTime = Math.round(singleTestState.endTime - singleTestState.startTime);
             resetSingleTest();
             resultBox.textContent = `반응 속도: ${reactionTime}ms`;
             resultBox.classList.remove('error');
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             validReactionTimes.push(reactionTime);
             completedAttempts++;
 
-            if (totalAttempts > 1) { // Check if it's a multi-attempt test
+            if (totalAttempts > 1) {
                 if (completedAttempts < totalAttempts) {
                     setTimeout(startMultiAttemptTestFlow, 500);
                 } else {
@@ -93,26 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
+
     reactionArea.addEventListener('click', () => {
         if (singleTestState.state === 'ready') {
-            // This click will always initiate a new test flow (single or multi)
-            if (initMultiAttemptTest()) { // This now correctly reads numAttemptsInput.value
+            if (initMultiAttemptTest()) {
                 startWaitingPhase();
             }
         } else if (singleTestState.state === 'waiting' || singleTestState.state === 'go') {
             handleReactionClickLogic();
         } else if (singleTestState.state === 'finished') {
-            // After game finishes, clicking restarts the whole test setup
             isMultiTestActive = false;
             numAttemptsInput.disabled = false;
             resetSingleTest();
-            reactionArea.textContent = '클릭하여 시작';
+            reactionArea.textContent = getStartText();
             resultBox.textContent = '';
-            // And then, if numAttempts > 1, update text
-            if (parseInt(numAttemptsInput.value, 10) > 1) {
-                reactionArea.textContent = '클릭하여 테스트 시작';
-            }
         }
     });
 
@@ -126,45 +121,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initMultiAttemptTest() {
-        const attemptsValue = parseInt(numAttemptsInput.value, 10);
-        if (isNaN(attemptsValue) || attemptsValue < 1) {
-            alert('유효한 시도 횟수를 입력하세요 (1 이상의 숫자).');
-            return false;
-        }
-        totalAttempts = attemptsValue; // Set totalAttempts from input
+        const attemptsValue = AppUtils.validatePositiveInt(numAttemptsInput.value, '시도 횟수');
+        if (attemptsValue === null) return false;
+
+        totalAttempts = attemptsValue;
         validReactionTimes = [];
         completedAttempts = 0;
-        isMultiTestActive = (totalAttempts > 1); // Set flag based on totalAttempts
+        isMultiTestActive = (totalAttempts > 1);
         numAttemptsInput.disabled = true;
         return true;
     }
 
     function endMultiAttemptTest() {
         let average = 0;
-        let grade = "F";
+        let grade = 'F';
 
         if (validReactionTimes.length > 0) {
             const sum = validReactionTimes.reduce((a, b) => a + b, 0);
             average = sum / validReactionTimes.length;
-            grade = getReactionGrade(average);
+            grade = AppUtils.getGrade(REACTION_GRADE_THRESHOLDS, average, 'F', true);
         }
 
         const newResult = {
-            id: new Date().getTime(),
-            date: new Date().toLocaleString(),
-            type: 'reaction',
+            ...AppUtils.createBaseResult('reaction'),
             grade: grade,
             average: average,
             reactionTimes: validReactionTimes,
             totalAttempts: totalAttempts
         };
 
-        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
-        let bestReactionResult = JSON.parse(localStorage.getItem('bestReactionTestResult'));
-
-        if (!bestReactionResult || (newResult.grade !== 'F' && newResult.average < bestReactionResult.average) || (bestReactionResult.grade === 'F' && newResult.grade !== 'F')) {
-            localStorage.setItem('bestReactionTestResult', JSON.stringify(newResult));
-        }
+        AppUtils.saveTestResult('bestReactionTestResult', newResult, (newR, bestR) => {
+            return (newR.grade !== 'F' && newR.average < bestR.average) ||
+                   (bestR.grade === 'F' && newR.grade !== 'F');
+        });
 
         resultBox.textContent = '연속 테스트 완료!';
         reactionArea.textContent = '결과 페이지로 이동 중...';
@@ -173,36 +162,16 @@ document.addEventListener('DOMContentLoaded', () => {
         isMultiTestActive = false;
         numAttemptsInput.disabled = false;
 
-        document.body.classList.add('fade-out');
-        setTimeout(() => {
-            window.location.href = 'results.html';
-        }, 500);
+        AppUtils.navigateToResults();
     }
 
-    function getReactionGrade(avgTime) {
-        if (avgTime < 150) return 'S';
-        if (avgTime < 200) return 'A';
-        if (avgTime < 250) return 'B';
-        if (avgTime < 350) return 'C';
-        if (avgTime < 450) return 'D';
-        return 'F';
-    }
-
-    // Initial setup on page load
+    // Initial setup
     resetSingleTest();
-    if (parseInt(numAttemptsInput.value, 10) > 1) {
-        reactionArea.textContent = '클릭하여 테스트 시작';
-    } else {
-        reactionArea.textContent = '클릭하여 시작';
-    }
+    reactionArea.textContent = getStartText();
 
     numAttemptsInput.addEventListener('change', () => {
         if (singleTestState.state === 'ready' && !isMultiTestActive) {
-            if (parseInt(numAttemptsInput.value, 10) > 1) {
-                reactionArea.textContent = '클릭하여 테스트 시작';
-            } else {
-                reactionArea.textContent = '클릭하여 시작';
-            }
+            reactionArea.textContent = getStartText();
         }
     });
 });

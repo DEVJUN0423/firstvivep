@@ -3,15 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const accuracyScoreDisplay = document.getElementById('accuracy-score');
     const accuracyTimerDisplay = document.getElementById('accuracy-timer');
     const accuracyResultsDisplay = document.getElementById('accuracy-results');
-    const startButton = document.querySelector('.start-accuracy-button'); // Changed selector from gameArea.querySelector
-    const accuracyMessage = document.getElementById('accuracy-message'); // New
-
+    const startButton = document.querySelector('.start-accuracy-button');
+    const accuracyMessage = document.getElementById('accuracy-message');
     const gameDurationInput = document.getElementById('game-duration-input');
 
     if (!gameArea || !accuracyScoreDisplay || !accuracyTimerDisplay || !accuracyResultsDisplay || !startButton || !gameDurationInput || !accuracyMessage) {
-        console.error('One or more required elements for Accuracy Test not found. Script may not function correctly.');
+        console.error('One or more required elements for Accuracy Test not found.');
         return;
     }
+
+    const DIFFICULTY_CONFIG = {
+        easy:   { targetSize: 70, timeout: 2000, spawnDelay: 1200 },
+        normal: { targetSize: 50, timeout: 1500, spawnDelay: 1000 },
+        hard:   { targetSize: 30, timeout: 1000, spawnDelay: 800 }
+    };
 
     let score = 0;
     let hits = 0;
@@ -20,60 +25,51 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameInterval;
     let targetTimeout;
     let gameRunning = false;
-
     let currentDifficulty = 'normal';
     let gameDuration = 30;
     let targetSize = 50;
     let targetTimeoutDuration = 1500;
     let spawnDelay = 1000;
-
     let hitReactionTimes = [];
 
     function createTarget() {
         if (!gameRunning) return;
 
-        gameArea.querySelectorAll('.target').forEach(target => target.remove());
+        gameArea.querySelectorAll('.target').forEach(t => t.remove());
 
         const target = document.createElement('div');
         target.classList.add('target');
         target.style.width = `${targetSize}px`;
         target.style.height = `${targetSize}px`;
-        
-        const gameAreaRect = gameArea.getBoundingClientRect();
-        const maxX = gameAreaRect.width - targetSize;
-        const maxY = gameAreaRect.height - targetSize;
 
-        if (maxX <= 0 || maxY <= 0) {
-            target.style.left = '0px';
-            target.style.top = '0px';
-        } else {
-            target.style.left = `${Math.random() * maxX}px`;
-            target.style.top = `${Math.random() * maxY}px`;
-        }
-        
-        const targetCreationTime = new Date().getTime();
+        const rect = gameArea.getBoundingClientRect();
+        const maxX = rect.width - targetSize;
+        const maxY = rect.height - targetSize;
+
+        target.style.left = maxX > 0 ? `${Math.random() * maxX}px` : '0px';
+        target.style.top = maxY > 0 ? `${Math.random() * maxY}px` : '0px';
+
+        const targetCreationTime = AppUtils.now();
         target.addEventListener('click', (event) => {
             event.stopPropagation();
-            if (gameRunning) {
-                const reactionTime = new Date().getTime() - targetCreationTime;
-                hitReactionTimes.push(reactionTime);
-                hits++;
-                score += 10;
-                updateScore();
-                target.remove();
-                clearTimeout(targetTimeout);
-                spawnNextTarget();
-            }
+            if (!gameRunning) return;
+
+            hitReactionTimes.push(Math.round(AppUtils.now() - targetCreationTime));
+            hits++;
+            score += 10;
+            updateScore();
+            target.remove();
+            clearTimeout(targetTimeout);
+            spawnNextTarget();
         });
         gameArea.appendChild(target);
 
         targetTimeout = setTimeout(() => {
-            if (gameRunning) {
-                misses++;
-                updateScore();
-                target.remove();
-                spawnNextTarget();
-            }
+            if (!gameRunning) return;
+            misses++;
+            updateScore();
+            target.remove();
+            spawnNextTarget();
         }, targetTimeoutDuration);
     }
 
@@ -91,15 +87,29 @@ document.addEventListener('DOMContentLoaded', () => {
         accuracyTimerDisplay.textContent = `시간: ${gameDuration - timer}초`;
     }
 
+    function getAccuracyGrade(accuracy, avgReactionTime) {
+        const gradeScore = (accuracy * 10) + Math.max(0, 500 - avgReactionTime);
+        const thresholds = [
+            { threshold: 1200, grade: 'S' },
+            { threshold: 1000, grade: 'A' },
+            { threshold: 800,  grade: 'B' },
+            { threshold: 600,  grade: 'C' },
+            { threshold: 400,  grade: 'D' }
+        ];
+        return AppUtils.getGrade(thresholds, gradeScore, 'F', false);
+    }
+
     function endGame() {
         gameRunning = false;
         clearInterval(gameInterval);
         clearTimeout(targetTimeout);
-        gameArea.querySelectorAll('.target').forEach(target => target.remove());
+        gameArea.querySelectorAll('.target').forEach(t => t.remove());
 
         const totalClicks = hits + misses;
         const accuracy = totalClicks > 0 ? (hits / totalClicks * 100).toFixed(2) : 0;
-        const avgReactionTime = hitReactionTimes.length > 0 ? (hitReactionTimes.reduce((a, b) => a + b, 0) / hitReactionTimes.length) : 0;
+        const avgReactionTime = hitReactionTimes.length > 0
+            ? hitReactionTimes.reduce((a, b) => a + b, 0) / hitReactionTimes.length
+            : 0;
         const grade = getAccuracyGrade(accuracy, avgReactionTime);
 
         accuracyResultsDisplay.innerHTML = `
@@ -109,11 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>평균 반응 시간: ${avgReactionTime.toFixed(2)}ms</p>
             <h3>등급: ${grade}</h3>
         `;
-        
+
         const newResult = {
-            id: new Date().getTime(),
-            date: new Date().toLocaleString(),
-            type: 'accuracy',
+            ...AppUtils.createBaseResult('accuracy'),
             grade: grade,
             score: score,
             accuracy: accuracy,
@@ -122,61 +130,29 @@ document.addEventListener('DOMContentLoaded', () => {
             difficulty: currentDifficulty
         };
 
-        localStorage.setItem('currentTestResult', JSON.stringify(newResult));
-        
-        let bestAccuracyResult = JSON.parse(localStorage.getItem('bestAccuracyTestResult'));
+        AppUtils.saveTestResult('bestAccuracyTestResult', newResult, (newR, bestR) => {
+            return newR.score > bestR.score;
+        });
 
-        if (!bestAccuracyResult || newResult.score > bestAccuracyResult.score) {
-            localStorage.setItem('bestAccuracyTestResult', JSON.stringify(newResult));
-        }
-        
-        accuracyMessage.textContent = '결과 페이지로 이동 중...'; // New: update message
-        startButton.textContent = '다시 시작'; // New: update button text
-        startButton.disabled = false; // New: enable start button
+        accuracyMessage.textContent = '결과 페이지로 이동 중...';
+        startButton.textContent = '다시 시작';
+        startButton.disabled = false;
 
-        document.body.classList.add('fade-out');
-        setTimeout(() => {
-            window.location.href = 'results.html';
-        }, 500);
-    }
-    
-    function getAccuracyGrade(accuracy, avgReactionTime) {
-        const score = (accuracy * 10) + Math.max(0, 500 - avgReactionTime);
-        if (score > 1200) return 'S';
-        if (score > 1000) return 'A';
-        if (score > 800) return 'B';
-        if (score > 600) return 'C';
-        if (score > 400) return 'D';
-        return 'F';
+        AppUtils.navigateToResults();
     }
 
     function startGame() {
-        gameDuration = parseInt(gameDurationInput.value, 10);
-        if (isNaN(gameDuration) || gameDuration <= 0) {
-            alert('유효한 게임 시간을 입력하세요 (양의 정수).');
-            return;
-        }
+        const duration = AppUtils.validatePositiveInt(gameDurationInput.value, '게임 시간');
+        if (duration === null) return;
+        gameDuration = duration;
 
         const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked').value;
         currentDifficulty = selectedDifficulty;
 
-        switch (currentDifficulty) {
-            case 'easy':
-                targetSize = 70;
-                targetTimeoutDuration = 2000;
-                spawnDelay = 1200;
-                break;
-            case 'normal':
-                targetSize = 50;
-                targetTimeoutDuration = 1500;
-                spawnDelay = 1000;
-                break;
-            case 'hard':
-                targetSize = 30;
-                targetTimeoutDuration = 1000;
-                spawnDelay = 800;
-                break;
-        }
+        const config = DIFFICULTY_CONFIG[currentDifficulty];
+        targetSize = config.targetSize;
+        targetTimeoutDuration = config.timeout;
+        spawnDelay = config.spawnDelay;
 
         score = 0;
         hits = 0;
@@ -185,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
         hitReactionTimes = [];
         gameRunning = true;
         accuracyResultsDisplay.innerHTML = '';
-        accuracyMessage.textContent = '게임을 플레이 중입니다...'; // New: update message
-        startButton.disabled = true; // New: disable start button
+        accuracyMessage.textContent = '게임을 플레이 중입니다...';
+        startButton.disabled = true;
 
         updateScore();
         updateTimer();
@@ -213,5 +189,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial setup
     updateScore();
     updateTimer();
-    accuracyMessage.textContent = '클릭하여 게임 시작'; // Initial message
+    accuracyMessage.textContent = '클릭하여 게임 시작';
 });

@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyShareLinkButton = document.getElementById('copy-share-link');
     const shareTwitterButton = document.getElementById('share-twitter');
     const shareFacebookButton = document.getElementById('share-facebook');
-    const testResultsDisplay = document.getElementById('test-results-display');
 
     const testTypesConfig = [
         {
@@ -22,7 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
             chartCanvasId: 'reaction-chart-results',
             chartInstance: null,
             comparisonMetric: 'average',
-            metricUnit: 'ms'
+            metricUnit: 'ms',
+            renderStats(data) {
+                return `<p>기록 날짜: ${data.date}</p><p>평균 반응 속도: ${data.average.toFixed(2)}ms</p>`;
+            },
+            getChartConfig(data) {
+                return {
+                    type: 'line',
+                    data: {
+                        labels: data.reactionTimes.map((_, i) => `시도 ${i + 1}`),
+                        datasets: [{ label: '반응 시간 (ms)', data: data.reactionTimes }]
+                    }
+                };
+            }
         },
         {
             id: 'accuracy',
@@ -34,7 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
             chartCanvasId: 'accuracy-chart-results',
             chartInstance: null,
             comparisonMetric: 'score',
-            metricUnit: '점'
+            metricUnit: '점',
+            renderStats(data) {
+                return `<p>기록 날짜: ${data.date}</p><p>난이도: ${data.difficulty}</p><p>최종 점수: ${data.score}</p><p>명중률: ${data.accuracy}%</p><p>평균 반응 시간: ${data.avgReactionTime}ms</p>`;
+            },
+            getChartConfig(data) {
+                return {
+                    type: 'line',
+                    data: {
+                        labels: data.reactionTimes.map((_, i) => `명중 ${i + 1}`),
+                        datasets: [{ label: '반응 시간 (ms)', data: data.reactionTimes }]
+                    }
+                };
+            }
         },
         {
             id: 'click',
@@ -46,7 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
             chartCanvasId: 'click-speed-chart-results',
             chartInstance: null,
             comparisonMetric: 'cps',
-            metricUnit: 'CPS'
+            metricUnit: 'CPS',
+            renderStats(data) {
+                return `<p>기록 날짜: ${data.date}</p><p>총 클릭 수: ${data.clickCount}</p><p>테스트 시간: ${data.gameDuration}초</p><p>초당 클릭 수 (CPS): ${data.cps}</p>`;
+            },
+            getChartConfig(data) {
+                return {
+                    type: 'bar',
+                    data: {
+                        labels: ['CPS'],
+                        datasets: [{ label: '초당 클릭 수', data: [parseFloat(data.cps)] }]
+                    }
+                };
+            }
         },
         {
             id: 'memory',
@@ -58,13 +93,31 @@ document.addEventListener('DOMContentLoaded', () => {
             chartCanvasId: 'memory-chart-results',
             chartInstance: null,
             comparisonMetric: 'finalScore',
-            metricUnit: '점'
+            metricUnit: '점',
+            renderStats(data) {
+                return `<p>기록 날짜: ${data.date}</p><p>최종 점수: ${data.finalScore}</p><p>총 정답: ${data.totalCorrectClicks}개</p><p>총 오답: ${data.totalIncorrectClicks}개</p><p>난이도: ${data.gridSize}x${data.gridSize}</p><p>기억 시간: ${data.recallDuration}초</p>`;
+            },
+            getChartConfig(data) {
+                return {
+                    type: 'bar',
+                    data: {
+                        labels: ['정답', '오답'],
+                        datasets: [{
+                            label: '클릭 수',
+                            data: [data.totalCorrectClicks, data.totalIncorrectClicks],
+                            backgroundColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)']
+                        }]
+                    }
+                };
+            }
         }
     ];
 
     let currentTestTypeIndex = 0;
     let challengeUrlToCopy = '';
-    let isTransitioning = false; // New flag to prevent rapid clicks
+    let isTransitioning = false;
+
+    // --- Comparison & Sharing ---
 
     function renderComparisonMessage(currentResult, bestResult, config) {
         const resultCardEl = document.getElementById(config.cardId);
@@ -74,11 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const gradeEl = document.getElementById(config.gradeElId);
         if (!gradeEl) return;
 
-        let message = '';
         const currentMetric = currentResult[config.comparisonMetric];
         const bestMetric = bestResult[config.comparisonMetric];
-        const isNewBest = (config.comparisonMetric === 'average' && currentMetric < bestMetric) || (config.comparisonMetric !== 'average' && currentMetric > bestMetric);
+        const isNewBest = (config.comparisonMetric === 'average')
+            ? currentMetric < bestMetric
+            : currentMetric > bestMetric;
 
+        let message;
         if (isNewBest) {
             message = `<div class="comparison-message new-best">🎉 새로운 최고 기록입니다!</div>`;
         } else {
@@ -93,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return `제가 ${config.name}에서 ${resultData[config.comparisonMetric]}${config.metricUnit} (등급: ${resultData.grade})를 기록했습니다! 저를 이겨보세요! #반응속도테스트 #도전`;
     }
 
+    // --- Share Modal ---
+
     function openShareModal(message, url) {
         challengeUrlToCopy = url;
         shareModal.style.display = 'flex';
@@ -100,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const encodedUrl = encodeURIComponent(url);
         const encodedMessage = encodeURIComponent(message);
-        
         shareTwitterButton.href = `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${encodedUrl}`;
         shareFacebookButton.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedMessage}`;
     }
@@ -155,28 +211,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function loadAndRenderAllResults() {
-        const currentTestResult = JSON.parse(localStorage.getItem('currentTestResult'));
-        let testJustCompleted = false;
+    // --- Chart ---
 
-        if (currentTestResult && currentTestResult.type) {
-            const configIndex = testTypesConfig.findIndex(t => t.id === currentTestResult.type);
-            if (configIndex !== -1) {
-                currentTestTypeIndex = configIndex;
-                testJustCompleted = true;
+    function updateChart(config, chartConfig) {
+        const chartCanvas = document.getElementById(config.chartCanvasId);
+        if (!chartCanvas) return;
+        if (config.chartInstance) config.chartInstance.destroy();
+
+        const ctx = chartCanvas.getContext('2d');
+        const chartType = chartConfig.type;
+
+        config.chartInstance = new Chart(ctx, {
+            type: chartType,
+            data: chartConfig.data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 500,
+                    easing: 'easeOutQuart',
+                    x: { from: chartType === 'line' ? 0 : undefined },
+                    y: { from: chartType === 'bar' ? 0 : undefined }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: chartConfig.data.datasets.length === 1, text: chartConfig.data.datasets[0].label }
+                    },
+                    x: { title: { display: false } }
+                },
+                plugins: {
+                    legend: {
+                        display: chartConfig.data.datasets.length > 1 || chartType === 'bar',
+                        position: 'top'
+                    }
+                }
             }
-        }
-        
-        testTypesConfig.forEach(config => {
-            renderCard(config, currentTestResult && currentTestResult.type === config.id ? currentTestResult : null);
         });
+    }
 
-        updateNavigationState();
-        showCurrentCard(false); // Initial load, no animation
-        
-        if (testJustCompleted) {
-            localStorage.removeItem('currentTestResult');
+    function clearChart(config) {
+        if (config.chartInstance) {
+            config.chartInstance.destroy();
+            config.chartInstance = null;
         }
+    }
+
+    // --- Rendering ---
+
+    function renderStatsAndChart(config, resultData, statsEl) {
+        statsEl.innerHTML = config.renderStats(resultData);
+        updateChart(config, config.getChartConfig(resultData));
     }
 
     function renderCard(config, currentResult) {
@@ -205,89 +290,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function renderStatsAndChart(config, resultData, statsEl) {
-        if (config.id === 'reaction') {
-            statsEl.innerHTML = `<p>기록 날짜: ${resultData.date}</p><p>평균 반응 속도: ${resultData.average.toFixed(2)}ms</p>`;
-            updateChart(config, { labels: resultData.reactionTimes.map((_, i) => `시도 ${i + 1}`), datasets: [{ label: '반응 시간 (ms)', data: resultData.reactionTimes }] }, 'line');
-        } else if (config.id === 'accuracy') {
-            statsEl.innerHTML = `<p>기록 날짜: ${resultData.date}</p><p>난이도: ${resultData.difficulty}</p><p>최종 점수: ${resultData.score}</p><p>명중률: ${resultData.accuracy}%</p><p>평균 반응 시간: ${resultData.avgReactionTime}ms</p>`;
-            updateChart(config, { labels: resultData.reactionTimes.map((_, i) => `명중 ${i + 1}`), datasets: [{ label: '반응 시간 (ms)', data: resultData.reactionTimes }] }, 'line');
-        } else if (config.id === 'click') {
-            statsEl.innerHTML = `<p>기록 날짜: ${resultData.date}</p><p>총 클릭 수: ${resultData.clickCount}</p><p>테스트 시간: ${resultData.gameDuration}초</p><p>초당 클릭 수 (CPS): ${resultData.cps}</p>`;
-            updateChart(config, { labels: ['CPS'], datasets: [{ label: '초당 클릭 수', data: [parseFloat(resultData.cps)] }] }, 'bar');
-        } else if (config.id === 'memory') {
-            statsEl.innerHTML = `<p>기록 날짜: ${resultData.date}</p><p>최종 점수: ${resultData.finalScore}</p><p>총 정답: ${resultData.totalCorrectClicks}개</p><p>총 오답: ${resultData.totalIncorrectClicks}개</p><p>난이도: ${resultData.gridSize}x${resultData.gridSize}</p><p>기억 시간: ${resultData.recallDuration}초</p>`;
-            const chartData = { labels: ['정답', '오답'], datasets: [{ label: '클릭 수', data: [resultData.totalCorrectClicks, resultData.totalIncorrectClicks], backgroundColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)'] }] };
-            updateChart(config, chartData, 'bar');
-        }
-    }
+    // --- Card Transition ---
 
-    function updateChart(config, chartData, chartType) {
-        const chartCanvas = document.getElementById(config.chartCanvasId);
-        if (!chartCanvas) return;
-        if (config.chartInstance) config.chartInstance.destroy();
-        const ctx = chartCanvas.getContext('2d');
-        config.chartInstance = new Chart(ctx, {
-            type: chartType,
-            data: chartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 500, // 0.5 second for chart animation
-                    easing: 'easeOutQuart', // A smooth easing function
-                    // For bar charts, animate 'y' to grow from bottom
-                    // For line charts, animate 'x' and 'y' for drawing effect
-                    x: {
-                        from: chartType === 'line' ? 0 : undefined // Animate x-axis for lines
-                    },
-                    y: {
-                        from: chartType === 'bar' ? 0 : undefined // Animate y-axis for bars
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: chartData.datasets.length === 1, text: chartData.datasets[0].label }
-                    },
-                    x: {
-                        title: { display: false }
-                    }
-                },
-                plugins: { legend: { display: chartData.datasets.length > 1 || chartType === 'bar', position: 'top' } }
-            }
-        });
-    }
+    function fadeInCard(card, config) {
+        card.style.display = 'block';
 
-    function clearChart(config) {
-        if (config.chartInstance) {
-            config.chartInstance.destroy();
-            config.chartInstance = null;
+        const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+        if (resultData) {
+            renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
+        } else {
+            clearChart(config);
         }
+
+        card.classList.add('card-fade-in');
+        card.addEventListener('animationend', function handler() {
+            card.classList.remove('card-fade-in');
+            card.removeEventListener('animationend', handler);
+            isTransitioning = false;
+        }, { once: true });
     }
 
     function showCurrentCard(animate = true) {
-        if (isTransitioning && animate) return; // Prevent new transitions if one is active
+        if (isTransitioning && animate) return;
 
         const allCards = document.querySelectorAll('.test-result-item');
         const currentCard = document.getElementById(testTypesConfig[currentTestTypeIndex].cardId);
+        const config = testTypesConfig[currentTestTypeIndex];
 
         if (!animate) {
             allCards.forEach(card => card.style.display = 'none');
-            if (currentCard) currentCard.style.display = 'block';
-            
-            const config = testTypesConfig[currentTestTypeIndex];
-            const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
-            if (resultData) {
-                renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
-            } else {
-                clearChart(config);
+            if (currentCard) {
+                currentCard.style.display = 'block';
+                const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
+                if (resultData) {
+                    renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
+                } else {
+                    clearChart(config);
+                }
             }
-            shareButton.disabled = !resultData;
+            shareButton.disabled = !JSON.parse(localStorage.getItem(config.localStorageKey));
             return;
         }
 
-        isTransitioning = true; // Set flag at the start of an animated transition
+        isTransitioning = true;
 
         const visibleCard = Array.from(allCards).find(card => card.style.display === 'block');
         if (visibleCard) {
@@ -295,80 +340,72 @@ document.addEventListener('DOMContentLoaded', () => {
             visibleCard.addEventListener('animationend', function handler() {
                 visibleCard.classList.remove('card-fade-out');
                 visibleCard.style.display = 'none';
-                visibleCard.removeEventListener('animationend', handler); // Clean up listener
-                
-                if (currentCard) {
-                    currentCard.style.display = 'block';
-                    // Render content before fade-in to ensure it's there
-                    const config = testTypesConfig[currentTestTypeIndex];
-                    const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
-                    if (resultData) {
-                         renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
-                    } else {
-                        clearChart(config);
-                    }
+                visibleCard.removeEventListener('animationend', handler);
 
-                    currentCard.classList.add('card-fade-in');
-                    currentCard.addEventListener('animationend', function handler() {
-                        currentCard.classList.remove('card-fade-in');
-                        currentCard.removeEventListener('animationend', handler); // Clean up listener
-                        isTransitioning = false; // Reset flag after animation completes
-                    }, { once: true });
+                if (currentCard) {
+                    fadeInCard(currentCard, config);
                 } else {
-                    isTransitioning = false; // Reset if there's no new card to show
+                    isTransitioning = false;
                 }
             }, { once: true });
+        } else if (currentCard) {
+            fadeInCard(currentCard, config);
         } else {
-            // No visible card, just show and fade in the new one
-            if (currentCard) {
-                currentCard.style.display = 'block';
-                 const config = testTypesConfig[currentTestTypeIndex];
-                const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
-                if (resultData) {
-                     renderStatsAndChart(config, resultData, document.getElementById(config.statsElId));
-                } else {
-                    clearChart(config);
-                }
-                currentCard.classList.add('card-fade-in');
-                currentCard.addEventListener('animationend', function handler() {
-                    currentCard.classList.remove('card-fade-in');
-                    currentCard.removeEventListener('animationend', handler); // Clean up listener
-                    isTransitioning = false; // Reset flag after animation completes
-                }, { once: true });
-            } else {
-                isTransitioning = false; // Reset if there's no new card to show
-            }
+            isTransitioning = false;
         }
-        
-        const config = testTypesConfig[currentTestTypeIndex];
-        const resultData = JSON.parse(localStorage.getItem(config.localStorageKey));
-        shareButton.disabled = !resultData;
+
+        shareButton.disabled = !JSON.parse(localStorage.getItem(config.localStorageKey));
     }
-    
+
+    // --- Navigation ---
+
     function updateNavigationState() {
-        resultCounter.textContent = `${testTypesConfig[currentTestTypeIndex].name}`;
+        resultCounter.textContent = testTypesConfig[currentTestTypeIndex].name;
         prevButton.disabled = currentTestTypeIndex === 0;
         nextButton.disabled = currentTestTypeIndex === testTypesConfig.length - 1;
     }
 
-    prevButton.addEventListener('click', () => {
-        if (isTransitioning) return; // Ignore clicks if transitioning
-        if (currentTestTypeIndex > 0) {
-            currentTestTypeIndex--;
+    function navigate(direction) {
+        if (isTransitioning) return;
+        const newIndex = currentTestTypeIndex + direction;
+        if (newIndex >= 0 && newIndex < testTypesConfig.length) {
+            currentTestTypeIndex = newIndex;
             showCurrentCard();
             updateNavigationState();
         }
-    });
+    }
 
-    nextButton.addEventListener('click', () => {
-        if (isTransitioning) return; // Ignore clicks if transitioning
-        if (currentTestTypeIndex < testTypesConfig.length - 1) {
-            currentTestTypeIndex++;
-            showCurrentCard();
-            updateNavigationState();
+    // --- Init ---
+
+    function loadAndRenderAllResults() {
+        const currentTestResult = JSON.parse(localStorage.getItem('currentTestResult'));
+        let testJustCompleted = false;
+
+        if (currentTestResult && currentTestResult.type) {
+            const configIndex = testTypesConfig.findIndex(t => t.id === currentTestResult.type);
+            if (configIndex !== -1) {
+                currentTestTypeIndex = configIndex;
+                testJustCompleted = true;
+            }
         }
-    });
 
+        testTypesConfig.forEach(config => {
+            const isCurrent = currentTestResult && currentTestResult.type === config.id;
+            renderCard(config, isCurrent ? currentTestResult : null);
+        });
+
+        updateNavigationState();
+        showCurrentCard(false);
+
+        if (testJustCompleted) {
+            localStorage.removeItem('currentTestResult');
+        }
+    }
+
+    // --- Event Listeners ---
+
+    prevButton.addEventListener('click', () => navigate(-1));
+    nextButton.addEventListener('click', () => navigate(1));
     shareButton.addEventListener('click', shareCurrentResult);
     closeButton.addEventListener('click', closeShareModal);
     shareModal.addEventListener('click', (event) => {

@@ -362,26 +362,29 @@ input:checked + .slider:before {
     color: #dc3545;
 }
 
-.test-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+/* Shared settings panel styles */
+.settings-panel {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     flex-wrap: wrap;
     padding: 15px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    background-color: var(--features-bg-color);
+    background-color: var(--container-bg-color);
 }
 
-.test-controls label {
-    font-size: 1.1em;
+.settings-panel label {
+    font-size: 1em;
     color: var(--text-color);
+    margin-right: 5px;
 }
 
-.test-controls input[type="number"] {
-    padding: 10px 15px;
+.settings-panel input[type="number"],
+.settings-panel select {
+    padding: 8px 12px;
     border: 1px solid var(--input-border-color);
     border-radius: 5px;
     font-size: 1em;
@@ -391,15 +394,27 @@ input:checked + .slider:before {
     color: var(--text-color);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.test-controls input[type="number"]:focus {
+
+.settings-panel input[type="number"]:focus,
+.settings-panel select:focus {
     border-color: var(--input-focus-border-color);
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     outline: none;
 }
 
-.test-controls button {
+.settings-panel button {
     padding: 10px 20px;
     font-size: 1em;
+}
+
+/* Reaction test: slightly different bg */
+.test-controls {
+    background-color: var(--features-bg-color);
+}
+
+/* Accuracy test: column layout */
+.game-settings {
+    flex-direction: column;
 }
 
 #average-result {
@@ -473,29 +488,12 @@ input:checked + .slider:before {
     background-color: #218838;
 }
 
-.game-settings {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--container-bg-color);
-}
-
 .difficulty-selection, .time-setting {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-}
-
-.game-settings label {
-    font-size: 1em;
-    color: var(--text-color);
-    margin-right: 5px;
 }
 
 .difficulty-selection input[type="radio"] {
@@ -529,58 +527,6 @@ input:checked + .slider:before {
     transform: translate(-50%, -50%);
 }
 
-.time-setting input[type="number"] {
-    padding: 8px 12px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    font-size: 1em;
-    width: 70px;
-    text-align: center;
-    background-color: var(--input-bg-color);
-    color: var(--text-color);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.time-setting input[type="number"]:focus {
-    border-color: var(--input-focus-border-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
-}
-
-.click-test-settings {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--container-bg-color);
-}
-
-.click-test-settings label {
-    font-size: 1em;
-    color: var(--text-color);
-    margin-right: 5px;
-}
-
-.click-test-settings input[type="number"] {
-    padding: 8px 12px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    font-size: 1em;
-    width: 70px;
-    text-align: center;
-    background-color: var(--input-bg-color);
-    color: var(--text-color);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.click-test-settings input[type="number"]:focus {
-    border-color: var(--input-focus-border-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
-}
 
 #click-area {
     width: 100%;
@@ -623,42 +569,6 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-.memory-test-settings {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--container-bg-color);
-}
-
-.memory-test-settings label {
-    font-size: 1em;
-    color: var(--text-color);
-    margin-right: 5px;
-}
-
-.memory-test-settings select,
-.memory-test-settings input[type="number"] {
-    padding: 8px 12px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    font-size: 1em;
-    text-align: center;
-    background-color: var(--input-bg-color);
-    color: var(--text-color);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.memory-test-settings select:focus,
-.memory-test-settings input[type="number"]:focus {
-    border-color: var(--input-focus-border-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
-}
 
 #game-board {
     display: grid;
