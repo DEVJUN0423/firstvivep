@@ -3,62 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>반응 속도 테스트 - 메인</title>
+    <title>ClickSpeed - 반응 속도 테스트</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="theme-manager.js"></script>
     <meta name="google-adsense-account" content="ca-pub-3833570049453307">
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="main-content">
-            <div class="container">
-                <header>
-                    <h1>반응 속도 테스트</h1>
-                    <p>당신의 반응 속도를 확인해보세요!</p>
-                </header>
-                <main>
-                    <section class="hero-section">
-                        <h2 id="hero-heading"></h2>
-                        <p id="hero-description"></p>
-                        <div class="start-button-wrapper">
-                            <a href="#" id="start-test-button" class="start-button">테스트 시작</a>
-                            <a href="results.html" class="button">종합 결과 보기</a>
-                        </div>
-                    </section>
-                    
-                    <section class="features-placeholder">
-                        <div class="features-content">
-                            <h2>다른 테스트 하러 가기</h2>
-                            <ul id="test-list">
-                                <li data-test-id="reaction" data-name="반응 속도 테스트" data-description="초록색으로 바뀌면 즉시 클릭하세요!" data-url="reaction-test.html"><h3>반응 속도 테스트</h3><p>초록색으로 바뀌면 즉시 클릭하세요!</p></li>
-                                <li data-test-id="accuracy" data-name="마우스 커서 정확도 테스트" data-description="빨간색 원을 정확하고 빠르게 클릭하세요!" data-url="accuracy-test.html"><h3>마우스 커서 정확도 테스트</h3><p>빨간색 원을 정확하고 빠르게 클릭하세요!</p></li>
-                                <li data-test-id="click" data-name="마우스 클릭 속도 테스트" data-description="정해진 시간 안에 최대한 많이 클릭하세요!" data-url="click-test.html"><h3>마우스 클릭 속도 테스트</h3><p>정해진 시간 안에 최대한 많이 클릭하세요!</p></li>
-                                <li data-test-id="memory" data-name="시각적 기억력 테스트" data-description="표시된 사각형을 기억하고, 사라진 후 클릭하세요!" data-url="memory-test.html"><h3>시각적 기억력 테스트</h3><p>표시된 사각형을 기억하고, 사라진 후 클릭하세요!</p></li>
-                                <li data-test-id="coming-soon-1" data-name="추가될 기능 2" data-description="새로운 기능이 곧 찾아옵니다." data-url="#"><h3>추가될 기능 2</h3><p>새로운 기능이 곧 찾아옵니다.</p></li>
-                                <li data-test-id="coming-soon-2" data-name="추가될 기능 3" data-description="새로운 기능이 곧 찾아옵니다." data-url="#"><h3>추가될 기능 3</h3><p>새로운 기능이 곧 찾아옵니다.</p></li>
-            
-                            </ul>
-                        </div>
-                    </section>
-                </main>
-                <footer>
-                    <p>&copy; 2026 반응 속도 테스트. All rights reserved.</p>
-                </footer>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">
+                    <i data-lucide="zap"></i>
+                </div>
+                <span class="brand-name">ClickSpeed</span>
+            </a>
+            <nav class="main-nav desktop-only">
+                <a href="#features" class="nav-item">Game Modes</a>
+                <a href="#leaderboard" class="nav-item">Leaderboard</a>
+                <a href="#stats" class="nav-item">Statistics</a>
+            </nav>
+            <button class="menu-btn mobile-only" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="zap"></i>
+                <span>무료 온라인 반응 속도 테스트</span>
             </div>
-            <script src="index.js"></script>
-            <a href="settings.html" class="floating-settings-btn" title="설정">⚙️</a>
-            <a href="index.html" class="floating-back-to-main-btn" title="메인으로">🏠 메인</a>
+            <h1 class="hero-headline" id="hero-heading">How Fast Can You Click?</h1>
+            <p class="hero-subheadline" id="hero-description">Challenge yourself with our click speed test. Measure your CPS (Clicks Per Second) and compete with players worldwide!</p>
+            <div class="cta-row">
+                <a href="#" id="start-test-button" class="btn-primary">
+                    <span>지금 시작하기</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+                <a href="results.html" class="btn-secondary">
+                    <i data-lucide="trophy"></i>
+                    <span>리더보드 보기</span>
+                </a>
+            </div>
         </div>
 
-        <!-- Challenge Modal -->
-        <div id="challenge-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h3>도전!</h3>
-                <p id="challenge-text"></p>
-                <a href="#" id="challenge-start-button" class="button">도전 수락!</a>
+        <div class="game-container">
+            <div class="click-area-preview" id="click-area-preview">
+                <i data-lucide="mouse-pointer-click"></i>
+                <span>Click Here to Start!</span>
+            </div>
+
+        </div>
+
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <i data-lucide="users"></i>
+                <span>10,000+ 플레이어</span>
+            </div>
+            <div class="trust-badge">
+                <i data-lucide="star"></i>
+                <span>4.9/5 평점</span>
+            </div>
+            <div class="trust-badge">
+                <i data-lucide="shield-check"></i>
+                <span>100% 무료</span>
             </div>
         </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <h2>다양한 게임 모드로 실력을 향상시키세요</h2>
+            <p>클릭 속도, 정확도, 반응 시간 등 다양한 테스트를 통해 당신의 한계에 도전하세요</p>
+        </div>
+        <div class="feature-carousel-container">
+            <button class="carousel-nav-btn left" id="prev-feature-btn"><i data-lucide="chevron-left"></i></button>
+            <div class="carousel-track-wrapper">
+                <div class="features-grid">
+                    <div class="feature-card" data-test-id="click" data-url="click-test.html">
+                        <div class="feature-icon green">
+                            <i data-lucide="timer"></i>
+                        </div>
+                        <h3>클릭 스피드</h3>
+                        <p>1, 5, 10초 동안 최대한 빠르게 클릭하여 CPS를 측정하세요. 실시간 점수를 확인하며 자신의 한계에 도전할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-card" data-test-id="accuracy" data-url="accuracy-test.html">
+                        <div class="feature-icon orange">
+                            <i data-lucide="target"></i>
+                        </div>
+                        <h3>정확도 테스트</h3>
+                        <p>움직이는 타겟을 정확하게 클릭하세요. 속도와 정확도의 균형을 맞추며 클릭 컨트롤을 향상시킬 수 있습니다.</p>
+                    </div>
+                    <div class="feature-card" data-test-id="reaction" data-url="reaction-test.html">
+                        <div class="feature-icon dark-green">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <h3>반응 시간</h3>
+                        <p>색상 변화에 얼마나 빠르게 반응하는지 측정하세요. 순간적인 판단력과 반응 속도를 훈련할 수 있습니다.</p>
+                    </div>
+                    <div class="feature-card" data-test-id="memory" data-url="memory-test.html">
+                        <div class="feature-icon purple">
+                            <i data-lucide="brain"></i>
+                        </div>
+                        <h3>시각적 기억력 테스트</h3>
+                        <p>표시된 사각형의 위치를 기억하고, 사라진 후 정확하게 클릭하세요.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav-btn right" id="next-feature-btn"><i data-lucide="chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="section-header">
+            <h2>Your Performance Stats</h2>
+            <p>Track your progress and improve your clicking speed</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i data-lucide="zap"></i>
+                </div>
+                <div class="stat-value purple-text" id="best-cps-value">0.0</div>
+                <div class="stat-label">최고 CPS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon teal">
+                    <i data-lucide="timer"></i>
+                </div>
+                <div class="stat-value teal-text" id="best-reaction-time-value">0 ms</div>
+                <div class="stat-label">최저 반응 시간</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon pink">
+                    <i data-lucide="target"></i>
+                </div>
+                <div class="stat-value pink-text" id="best-accuracy-score-value">0</div>
+                <div class="stat-label">최고 정확도 점수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon yellow">
+                    <i data-lucide="brain"></i>
+                </div>
+                <div class="stat-value yellow-text" id="best-memory-score-value">0</div>
+                <div class="stat-label">최고 기억력 점수</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section class="leaderboard-section" id="leaderboard">
+        <div class="section-header">
+            <h2>Global Leaderboard</h2>
+            <p>See how you rank against the best clickers worldwide</p>
+        </div>
+        <div class="leaderboard-container">
+            <h3 id="leaderboard-game-title" style="text-align: center; margin-bottom: 20px; font-size: 1.5em; color: var(--primary);">글로벌 리더보드</h3> <!-- New title to indicate current game -->
+            <div class="podium">
+                <div class="podium-item second">
+                    <div class="medal silver">🥈</div>
+                    <div class="podium-bar silver-bar">
+                        <span id="second-place-score">14.5</span>
+                    </div>
+                </div>
+                <div class="podium-item first">
+                    <div class="medal gold">🥇</div>
+                    <div class="podium-bar gold-bar">
+                        <span id="first-place-score">16.8</span>
+                    </div>
+                </div>
+                <div class="podium-item third">
+                    <div class="medal bronze">🥉</div>
+                    <div class="podium-bar bronze-bar">
+                        <span id="third-place-score">13.2</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Keeping leader-list hardcoded for now, focus on podium -->
+            <div class="leader-list">
+                <div class="leader-row">
+                    <span class="rank-num">4</span>
+                    <span class="rank-name">Player123</span>
+                    <span class="rank-score">12.4 CPS</span>
+                </div>
+                <div class="leader-row">
+                    <span class="rank-num">5</span>
+                    <span class="rank-name">FastClicker</span>
+                    <span class="rank-score">11.9 CPS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <h2>준비되셨나요? 지금 바로 시작하세요!</h2>
+        <p>무료로 반응 속도를 테스트하고 전 세계 랭킹에 도전하세요</p>
+        <a href="#" class="btn-cta" id="cta-start-btn">
+            <span>무료로 시작하기</span>
+            <i data-lucide="play"></i>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon small">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <span>ClickSpeed</span>
+                </div>
+                <p class="footer-desc">반응 속도와 클릭 능력을 테스트하고 향상시키는 무료 온라인 플랫폼</p>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-links-col">
+                    <h4>게임</h4>
+                    <a href="click-test.html">클릭 스피드</a>
+                    <a href="accuracy-test.html">정확도 테스트</a>
+                    <a href="reaction-test.html">반응 시간</a>
+                    <a href="memory-test.html">기억력 테스트</a>
+                </div>
+                <div class="footer-links-col">
+                    <h4>더보기</h4>
+                    <a href="results.html">종합 결과</a>
+                    <a href="settings.html">설정</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ClickSpeed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden test list for JS compatibility -->
+    <ul id="test-list" style="display:none;">
+        <li data-test-id="reaction" data-name="반응 속도 테스트" data-description="초록색으로 바뀌면 즉시 클릭하세요!" data-url="reaction-test.html"><h3>반응 속도 테스트</h3><p>초록색으로 바뀌면 즉시 클릭하세요!</p></li>
+        <li data-test-id="accuracy" data-name="마우스 커서 정확도 테스트" data-description="빨간색 원을 정확하고 빠르게 클릭하세요!" data-url="accuracy-test.html"><h3>마우스 커서 정확도 테스트</h3><p>빨간색 원을 정확하고 빠르게 클릭하세요!</p></li>
+        <li data-test-id="click" data-name="마우스 클릭 속도 테스트" data-description="정해진 시간 안에 최대한 많이 클릭하세요!" data-url="click-test.html"><h3>마우스 클릭 속도 테스트</h3><p>정해진 시간 안에 최대한 많이 클릭하세요!</p></li>
+        <li data-test-id="memory" data-name="시각적 기억력 테스트" data-description="표시된 사각형을 기억하고, 사라진 후 클릭하세요!" data-url="memory-test.html"><h3>시각적 기억력 테스트</h3><p>표시된 사각형을 기억하고, 사라진 후 클릭하세요!</p></li>
+    </ul>
+
+    <!-- Challenge Modal -->
+    <div id="challenge-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>도전!</h3>
+            <p id="challenge-text"></p>
+            <a href="#" id="challenge-start-button" class="btn-primary">도전 수락!</a>
+        </div>
     </div>
+
+    <script src="index.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>

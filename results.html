@@ -3,21 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>종합 결과</title>
+    <title>종합 결과</title> <!-- Preserved Title -->
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="theme-manager.js"></script>
     <script src="utils.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <meta name="google-adsense-account" content="ca-pub-3833570049453307">
 </head>
 <body>
+    <!-- Header from index.html -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">
+                    <i data-lucide="zap"></i>
+                </div>
+                <span class="brand-name">ClickSpeed</span>
+            </a>
+            <nav class="main-nav desktop-only">
+                <a href="index.html#features" class="nav-item">Game Modes</a>
+                <a href="index.html#leaderboard" class="nav-item">Leaderboard</a>
+                <a href="index.html#stats" class="nav-item">Statistics</a>
+            </nav>
+            <button class="menu-btn mobile-only" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
     <div class="page-wrapper">
         <div class="main-content">
             <div class="container">
-                <header>
-                    <h1>종합 결과</h1>
-                    <p>당신의 게임 성적을 확인해보세요.</p>
-                </header>
                 <main>
                     <div class="navigation-controls">
                         <button id="prev-result" class="button" disabled>이전 결과</button>
@@ -81,14 +101,62 @@
                         <a href="index.html" class="button">메인으로 돌아가기</a>
                     </section>
                 </main>
-                <footer>
-                    <p>&copy; 2026 반응 속도 테스트. All rights reserved.</p>
-                </footer>
             </div>
-            <script src="results.js"></script>
-            <a href="settings.html" class="floating-settings-btn" title="설정">⚙️</a>
-            <a href="index.html" class="floating-back-to-main-btn" title="메인으로">🏠 메인</a>
         </div>
     </div>
+
+    <!-- Footer from index.html -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon small">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <span>ClickSpeed</span>
+                </div>
+                <p class="footer-desc">반응 속도와 클릭 능력을 테스트하고 향상시키는 무료 온라인 플랫폼</p>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-links-col">
+                    <h4>게임</h4>
+                    <a href="click-test.html">클릭 스피드</a>
+                    <a href="accuracy-test.html">정확도 테스트</a>
+                    <a href="reaction-test.html">반응 시간</a>
+                    <a href="memory-test.html">기억력 테스트</a>
+                </div>
+                <div class="footer-links-col">
+                    <h4>더보기</h4>
+                    <a href="results.html">종합 결과</a>
+                    <a href="settings.html">설정</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ClickSpeed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden test list for JS compatibility -->
+    <ul id="test-list" style="display:none;">
+        <li data-test-id="reaction" data-name="반응 속도 테스트" data-description="초록색으로 바뀌면 즉시 클릭하세요!" data-url="reaction-test.html"><h3>반응 속도 테스트</h3><p>초록색으로 바뀌면 즉시 클릭하세요!</p></li>
+        <li data-test-id="accuracy" data-name="마우스 커서 정확도 테스트" data-description="빨간색 원을 정확하고 빠르게 클릭하세요!" data-url="accuracy-test.html"><h3>마우스 커서 정확도 테스트</h3><p>빨간색 원을 정확하고 빠르게 클릭하세요!</p></li>
+        <li data-test-id="click" data-name="마우스 클릭 속도 테스트" data-description="정해진 시간 안에 최대한 많이 클릭하세요!" data-url="click-test.html"><h3>마우스 클릭 속도 테스트</h3><p>정해진 시간 안에 최대한 많이 클릭하세요!</p></li>
+        <li data-test-id="memory" data-name="시각적 기억력 테스트" data-description="표시된 사각형을 기억하고, 사라진 후 클릭하세요!" data-url="memory-test.html"><h3>시각적 기억력 테스트</h3><p>표시된 사각형을 기억하고, 사라진 후 클릭하세요!</p></li>
+    </ul>
+
+    <!-- Challenge Modal -->
+    <div id="challenge-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>도전!</h3>
+            <p id="challenge-text"></p>
+            <a href="#" id="challenge-start-button" class="btn-primary">도전 수락!</a>
+        </div>
+    </div>
+
+    <script src="results.js"></script>
+    <script src="index.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>

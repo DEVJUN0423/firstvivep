@@ -1,0 +1,3813 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "vvZ4G",
+      "x": 200,
+      "y": 100,
+      "name": "Click Test Website",
+      "width": 1440,
+      "fill": "#FFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "HNvIS",
+          "name": "Header",
+          "width": "fill_container",
+          "height": 80,
+          "fill": "#FFFFFF",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#1A191808",
+            "offset": {
+              "x": 0,
+              "y": 1
+            },
+            "blur": 4
+          },
+          "padding": [
+            0,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "JhXl1",
+              "name": "logoSection",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7w8fj",
+                  "name": "logoIcon",
+                  "width": 40,
+                  "height": 40,
+                  "fill": "#8B5CF6",
+                  "cornerRadius": 20,
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "FXu0E",
+                      "name": "cursorIcon",
+                      "width": 24,
+                      "height": 24,
+                      "iconFontName": "mouse-pointer-click",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "210wh",
+                  "name": "brandName",
+                  "fill": "#18181B",
+                  "content": "ClickSpeed",
+                  "fontFamily": "Plus Jakarta Sans",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tsbQ7",
+              "name": "nav",
+              "gap": 40,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "O8oZq",
+                  "name": "navItem1",
+                  "fill": "#71717A",
+                  "content": "Game Modes",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "Ashb3",
+                  "name": "navItem2",
+                  "fill": "#71717A",
+                  "content": "Leaderboard",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "y7uQV",
+                  "name": "navItem3",
+                  "fill": "#71717A",
+                  "content": "Statistics",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "o1rJR",
+          "name": "Hero Section",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": 80,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Ni3Xk",
+              "name": "heroContent",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "n2hal",
+                  "name": "heroBadge",
+                  "fill": "#C8F0D8",
+                  "cornerRadius": 100,
+                  "gap": 8,
+                  "padding": [
+                    10,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "se6uE",
+                      "name": "heroBadgeIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "zap",
+                      "iconFontFamily": "lucide",
+                      "fill": "#3D8A5A"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CvCNc",
+                      "name": "heroBadgeText",
+                      "fill": "#3D8A5A",
+                      "content": "무료 온라인 반응 속도 테스트",
+                      "fontFamily": "Outfit",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "kd1D6",
+                  "name": "headline",
+                  "fill": "#1A1918",
+                  "content": "How Fast Can You Click?",
+                  "lineHeight": 1.1,
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 64,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "OELUV",
+                  "name": "subheadline",
+                  "fill": "#6D6C6A",
+                  "textGrowth": "fixed-width",
+                  "width": 680,
+                  "content": "Challenge yourself with our click speed test. Measure your CPS (Clicks Per Second) and compete with players worldwide!",
+                  "lineHeight": 1.5,
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 20,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "za3iQ",
+                  "name": "newCTARow",
+                  "gap": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "REJ1X",
+                      "name": "primaryCTA",
+                      "fill": "#3D8A5A",
+                      "cornerRadius": 12,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#3D8A5A40",
+                        "offset": {
+                          "x": 0,
+                          "y": 4
+                        },
+                        "blur": 16
+                      },
+                      "gap": 8,
+                      "padding": [
+                        18,
+                        36
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ieayS",
+                          "name": "primaryCTAText",
+                          "fill": "#FFFFFF",
+                          "content": "지금 시작하기",
+                          "fontFamily": "Outfit",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "0GRCk",
+                          "name": "primaryCTAIcon",
+                          "width": 20,
+                          "height": 20,
+                          "iconFontName": "arrow-right",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "36at9",
+                      "name": "secondaryCTA",
+                      "fill": "#F5F4F1",
+                      "cornerRadius": 12,
+                      "gap": 8,
+                      "padding": [
+                        18,
+                        36
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "A0oG1",
+                          "name": "secondaryCTAIcon",
+                          "width": 20,
+                          "height": 20,
+                          "iconFontName": "trophy",
+                          "iconFontFamily": "lucide",
+                          "fill": "#3D8A5A"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bXmM1",
+                          "name": "secondaryCTAText",
+                          "fill": "#1A1918",
+                          "content": "리더보드 보기",
+                          "fontFamily": "Outfit",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "cHQ2I",
+              "name": "gameContainer",
+              "width": 600,
+              "height": 320,
+              "fill": "#FFFFFF",
+              "cornerRadius": 32,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#8B5CF630",
+                "offset": {
+                  "x": 0,
+                  "y": 10
+                },
+                "blur": 40,
+                "spread": -10
+              },
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vClHs",
+                  "name": "clickArea",
+                  "width": "fill_container",
+                  "height": 120,
+                  "fill": "#8B5CF6",
+                  "cornerRadius": 24,
+                  "effect": [
+                    {
+                      "type": "shadow",
+                      "shadowType": "outer",
+                      "color": "#3D8A5A20",
+                      "offset": {
+                        "x": 0,
+                        "y": 2
+                      },
+                      "blur": 8
+                    },
+                    {
+                      "type": "shadow",
+                      "shadowType": "outer",
+                      "color": "#3D8A5A",
+                      "spread": 2
+                    }
+                  ],
+                  "layout": "vertical",
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "59FFx",
+                      "name": "clickAreaIcon",
+                      "width": 32,
+                      "height": 32,
+                      "iconFontName": "mouse-pointer-click",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "8IpmZ",
+                      "name": "clickAreaText",
+                      "fill": "#FFFFFF",
+                      "content": "Click Here to Start!",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tKglP",
+                  "name": "modesRow",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "sJ34f",
+                      "name": "mode1",
+                      "fill": "#F4F4F5",
+                      "cornerRadius": 20,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MAru1",
+                          "name": "mode1Text",
+                          "fill": "#71717A",
+                          "content": "5 sec",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TiIXp",
+                      "name": "mode2",
+                      "fill": "#8B5CF620",
+                      "cornerRadius": 20,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vBqET",
+                          "name": "mode2Text",
+                          "fill": "#8B5CF6",
+                          "content": "10 sec",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "J7IFt",
+                      "name": "mode3",
+                      "fill": "#F4F4F5",
+                      "cornerRadius": 20,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "69GWN",
+                          "name": "mode3Text",
+                          "fill": "#71717A",
+                          "content": "30 sec",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "056IE",
+              "name": "trustBadges",
+              "gap": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "63xqG",
+                  "name": "trust1",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "yBwcj",
+                      "name": "trust1Icon",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "users",
+                      "iconFontFamily": "lucide",
+                      "fill": "#3D8A5A"
+                    },
+                    {
+                      "type": "text",
+                      "id": "FQKjF",
+                      "name": "trust1Text",
+                      "fill": "#6D6C6A",
+                      "content": "10,000+ 플레이어",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "W1qPJ",
+                  "name": "trust2",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "BjwjJ",
+                      "name": "trust2Icon",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "star",
+                      "iconFontFamily": "lucide",
+                      "fill": "#3D8A5A"
+                    },
+                    {
+                      "type": "text",
+                      "id": "l1A7k",
+                      "name": "trust2Text",
+                      "fill": "#6D6C6A",
+                      "content": "4.9/5 평점",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6k9nh",
+                  "name": "trust3",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "wKPx4",
+                      "name": "trust3Icon",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "shield-check",
+                      "iconFontFamily": "lucide",
+                      "fill": "#3D8A5A"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VMEc8",
+                      "name": "trust3Text",
+                      "fill": "#6D6C6A",
+                      "content": "100% 무료",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dYm1R",
+          "name": "desktopFeatures",
+          "width": "fill_container",
+          "fill": "#F5F4F1",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "CJBdw",
+              "name": "desktopFeaturesHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "3wOJH",
+                  "name": "desktopFeaturesTitle",
+                  "fill": "#1A1918",
+                  "content": "다양한 게임 모드로 실력을 향상시키세요",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 40,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "1xRvJ",
+                  "name": "desktopFeaturesDesc",
+                  "fill": "#6D6C6A",
+                  "textGrowth": "fixed-width",
+                  "width": 700,
+                  "content": "클릭 속도, 정확도, 반응 시간 등 다양한 테스트를 통해 당신의 한계에 도전하세요",
+                  "lineHeight": 1.5,
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "phEaQ",
+              "name": "desktopFeaturesGrid",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "W1hOc",
+                  "name": "dFeature1",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 20,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "2VDV2",
+                      "name": "dFeature1Icon",
+                      "width": 64,
+                      "height": 64,
+                      "fill": "#3D8A5A",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "yTslI",
+                          "name": "dFeature1IconInner",
+                          "width": 32,
+                          "height": 32,
+                          "iconFontName": "timer",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "8MUfE",
+                      "name": "dFeature1Title",
+                      "fill": "#1A1918",
+                      "content": "클릭 스피드",
+                      "fontFamily": "Outfit",
+                      "fontSize": 22,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2DNxT",
+                      "name": "dFeature1Desc",
+                      "fill": "#6D6C6A",
+                      "content": "1, 5, 10초 동안 최대한 빠르게 클릭하여 CPS를 측정하세요. 실시간 점수를 확인하며 자신의 한계에 도전할 수 있습니다.",
+                      "lineHeight": 1.6,
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BcBEl",
+                  "name": "dFeature2",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 20,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "sSxPP",
+                      "name": "dFeature2Icon",
+                      "width": 64,
+                      "height": 64,
+                      "fill": "#D89575",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "1OfKa",
+                          "name": "dFeature2IconInner",
+                          "width": 32,
+                          "height": 32,
+                          "iconFontName": "target",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "MEakI",
+                      "name": "dFeature2Title",
+                      "fill": "#1A1918",
+                      "content": "정확도 테스트",
+                      "fontFamily": "Outfit",
+                      "fontSize": 22,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OAOfJ",
+                      "name": "dFeature2Desc",
+                      "fill": "#6D6C6A",
+                      "content": "움직이는 타겟을 정확하게 클릭하세요. 속도와 정확도의 균형을 맞추며 클릭 컨트롤을 향상시킬 수 있습니다.",
+                      "lineHeight": 1.6,
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QTXxl",
+                  "name": "dFeature3",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 20,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "iXycH",
+                      "name": "dFeature3Icon",
+                      "width": 64,
+                      "height": 64,
+                      "fill": "#4D9B6A",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "J04rH",
+                          "name": "dFeature3IconInner",
+                          "width": 32,
+                          "height": 32,
+                          "iconFontName": "zap",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "OplPh",
+                      "name": "dFeature3Title",
+                      "fill": "#1A1918",
+                      "content": "반응 시간",
+                      "fontFamily": "Outfit",
+                      "fontSize": 22,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OkZEo",
+                      "name": "dFeature3Desc",
+                      "fill": "#6D6C6A",
+                      "content": "색상 변화에 얼마나 빠르게 반응하는지 측정하세요. 순간적인 판단력과 반응 속도를 훈련할 수 있습니다.",
+                      "lineHeight": 1.6,
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "lWGXE",
+          "name": "Statistics Section",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "595Ic",
+              "name": "statsHeader",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "5luTs",
+                  "name": "statsTitle",
+                  "fill": "#18181B",
+                  "content": "Your Performance Stats",
+                  "fontFamily": "Outfit",
+                  "fontSize": 40,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "Ij2Bg",
+                  "name": "statsSubtitle",
+                  "fill": "#71717A",
+                  "content": "Track your progress and improve your clicking speed",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ALsnE",
+              "name": "statsGrid",
+              "gap": 24,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xcIlW",
+                  "name": "bestCard",
+                  "width": 280,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 24,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 40,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tIi8I",
+                      "name": "statIcon1Desktop",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#C8F0D8",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "0vDIH",
+                          "name": "statIconInner1",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "trophy",
+                          "iconFontFamily": "lucide",
+                          "fill": "#3D8A5A"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "OmOvE",
+                      "name": "bestIcon",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#8B5CF620",
+                      "cornerRadius": 28,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "HOQbB",
+                          "name": "bestIconInner",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "trophy",
+                          "iconFontFamily": "lucide",
+                          "fill": "#8B5CF6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "clsht",
+                      "name": "bestValue",
+                      "fill": "#8B5CF6",
+                      "content": "12.4",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 48,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "rN2sD",
+                      "name": "bestLabel",
+                      "fill": "#71717A",
+                      "content": "Best CPS",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gpkad",
+                  "name": "avgCard",
+                  "width": 280,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 24,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 40,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "BpqT5",
+                      "name": "statIcon2Desktop",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#E5E4E1",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "D1bYs",
+                          "name": "statIconInner2",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "trending-up",
+                          "iconFontFamily": "lucide",
+                          "fill": "#6D6C6A"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZcVPj",
+                      "name": "avgIcon",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#14B8A620",
+                      "cornerRadius": 28,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "xQPZP",
+                          "name": "avgIconInner",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "trending-up",
+                          "iconFontFamily": "lucide",
+                          "fill": "#14B8A6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "2yN2q",
+                      "name": "avgValue",
+                      "fill": "#14B8A6",
+                      "content": "8.7",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 48,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "KFRro",
+                      "name": "avgLabel",
+                      "fill": "#71717A",
+                      "content": "Average CPS",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "aFpai",
+                  "name": "totalCard",
+                  "width": 280,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 24,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 40,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "v22dP",
+                      "name": "statIcon3Desktop",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#FFF3E0",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "Dedli",
+                          "name": "statIconInner3",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "mouse-pointer-click",
+                          "iconFontFamily": "lucide",
+                          "fill": "#D89575"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oRnb8",
+                      "name": "totalIcon",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#F472B620",
+                      "cornerRadius": 28,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "laZGP",
+                          "name": "totalIconInner",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "mouse-pointer-click",
+                          "iconFontFamily": "lucide",
+                          "fill": "#F472B6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "JebDW",
+                      "name": "totalValue",
+                      "fill": "#F472B6",
+                      "content": "24,851",
+                      "lineHeight": 0.9,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 48,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jHjqj",
+                      "name": "totalLabel",
+                      "fill": "#71717A",
+                      "content": "Total Clicks",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "lbis4",
+          "name": "Leaderboard Section",
+          "width": "fill_container",
+          "fill": "#F5F4F1",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "EVZsE",
+              "name": "leaderHeader",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vv0xf",
+                  "name": "leaderTitle",
+                  "fill": "#18181B",
+                  "content": "Global Leaderboard",
+                  "fontFamily": "Outfit",
+                  "fontSize": 40,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "tsAi9",
+                  "name": "leaderSubtitle",
+                  "fill": "#71717A",
+                  "content": "See how you rank against the best clickers worldwide",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k5rCZ",
+              "name": "leaderContainer",
+              "width": 800,
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kt6kF",
+                  "name": "podium",
+                  "height": 200,
+                  "gap": 24,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "TE914",
+                      "name": "second",
+                      "width": 200,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "q1Xt8",
+                          "name": "secondMedal",
+                          "width": 64,
+                          "height": 64,
+                          "fill": "#E5E7EB",
+                          "cornerRadius": 32,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WERBN",
+                              "name": "secondIcon",
+                              "fill": "#71717A",
+                              "content": "2",
+                              "fontFamily": "Plus Jakarta Sans",
+                              "fontSize": 28,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "JyGFc",
+                          "name": "secondName",
+                          "fill": "#18181B",
+                          "content": "Alex Chen",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "VTQ6K",
+                          "name": "secondScore",
+                          "fill": "#71717A",
+                          "content": "14.8 CPS",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pUqBy",
+                      "name": "first",
+                      "width": 200,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "NjbBd",
+                          "name": "firstMedal",
+                          "width": 80,
+                          "height": 80,
+                          "fill": "#FCD34D",
+                          "cornerRadius": 40,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WogmG",
+                              "name": "firstIcon",
+                              "fill": "#FFFFFF",
+                              "content": "1",
+                              "fontFamily": "Plus Jakarta Sans",
+                              "fontSize": 36,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "S5leG",
+                          "name": "firstName",
+                          "fill": "#18181B",
+                          "content": "Sarah Kim",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "RJ1b9",
+                          "name": "firstScore",
+                          "fill": "#8B5CF6",
+                          "content": "15.2 CPS",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "6dAgy",
+                      "name": "third",
+                      "width": 200,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "6Ul2A",
+                          "name": "thirdMedal",
+                          "width": 64,
+                          "height": 64,
+                          "fill": "#F59E0B",
+                          "cornerRadius": 32,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "heHuS",
+                              "name": "thirdIcon",
+                              "fill": "#FFFFFF",
+                              "content": "3",
+                              "fontFamily": "Plus Jakarta Sans",
+                              "fontSize": 28,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "OawNv",
+                          "name": "thirdName",
+                          "fill": "#18181B",
+                          "content": "Mike Johnson",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gzisL",
+                          "name": "thirdScore",
+                          "fill": "#71717A",
+                          "content": "14.5 CPS",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A1TXB",
+                  "name": "leaderList",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "XQVWV",
+                      "name": "rank4",
+                      "width": "fill_container",
+                      "fill": "#F9FAFB",
+                      "cornerRadius": 24,
+                      "padding": 20,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "LAoly",
+                          "name": "rank4Left",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "6ia1k",
+                              "name": "rank4Num",
+                              "fill": "#71717A",
+                              "content": "4",
+                              "fontFamily": "Plus Jakarta Sans",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "SwsPh",
+                              "name": "rank4Name",
+                              "fill": "#18181B",
+                              "content": "David Lee",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "GqnRr",
+                          "name": "rank4CPS",
+                          "fill": "#71717A",
+                          "content": "13.9 CPS",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "52Ttm",
+                      "name": "rank5",
+                      "width": "fill_container",
+                      "fill": "#F9FAFB",
+                      "cornerRadius": 24,
+                      "padding": 20,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "526RP",
+                          "name": "rank5Left",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "QtDm5",
+                              "name": "rank5Num",
+                              "fill": "#71717A",
+                              "content": "5",
+                              "fontFamily": "Plus Jakarta Sans",
+                              "fontSize": 18,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "kBIjJ",
+                              "name": "rank5Name",
+                              "fill": "#18181B",
+                              "content": "Emma Wilson",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "DH4i8",
+                          "name": "rank5CPS",
+                          "fill": "#71717A",
+                          "content": "13.6 CPS",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hSxJ1",
+          "name": "ctaBanner",
+          "width": "fill_container",
+          "fill": "#3D8A5A",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            80,
+            120
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "YQnXZ",
+              "name": "ctaBannerTitle",
+              "fill": "#FFFFFF",
+              "content": "준비되셨나요? 지금 바로 시작하세요!",
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 40,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "BwMYT",
+              "name": "ctaBannerDesc",
+              "fill": "#C8F0D8",
+              "textGrowth": "fixed-width",
+              "width": 600,
+              "content": "무료로 반응 속도를 테스트하고 전 세계 랭킹에 도전하세요",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 18,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "WToyu",
+              "name": "ctaBannerBtnRow",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xcBBO",
+                  "name": "ctaBannerBtn",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#00000020",
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "blur": 16
+                  },
+                  "gap": 8,
+                  "padding": [
+                    18,
+                    36
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NNpOk",
+                      "name": "ctaBannerBtnText",
+                      "fill": "#3D8A5A",
+                      "content": "무료로 시작하기",
+                      "fontFamily": "Outfit",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "bgfoC",
+                      "name": "ctaBannerBtnIcon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "play",
+                      "iconFontFamily": "lucide",
+                      "fill": "#3D8A5A"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "LAszw",
+          "name": "Footer",
+          "width": "fill_container",
+          "fill": "#1A1918",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            60,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Z5th8",
+              "name": "footerTop",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JRvCT",
+                  "name": "footerBrand",
+                  "width": 300,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "NW3JX",
+                      "name": "footerLogo",
+                      "gap": 12,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "cBWFU",
+                          "name": "footerLogoIcon",
+                          "width": 32,
+                          "height": 32,
+                          "fill": "#8B5CF6",
+                          "cornerRadius": 16,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "77jCS",
+                              "name": "footerLogoIconInner",
+                              "width": 20,
+                              "height": 20,
+                              "iconFontName": "mouse-pointer-click",
+                              "iconFontFamily": "lucide",
+                              "fill": "#FFFFFF"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ly60B",
+                          "name": "footerLogoText",
+                          "fill": "#FFFFFF",
+                          "content": "ClickSpeed",
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "V9SDc",
+                      "name": "footerDesc",
+                      "fill": "#A1A1AA",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Test your clicking speed and compete with players worldwide. Challenge yourself to improve your CPS!",
+                      "lineHeight": 1.6,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LisF3",
+                  "name": "footerLinks",
+                  "gap": 80,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WvSM3",
+                      "name": "gamesCol",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yqQsZ",
+                          "name": "gamesTitle",
+                          "fill": "#FFFFFF",
+                          "content": "Game Modes",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "8dqNI",
+                          "name": "gamesLink1",
+                          "fill": "#A1A1AA",
+                          "content": "5 Second Test",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "tR0zW",
+                          "name": "gamesLink2",
+                          "fill": "#A1A1AA",
+                          "content": "10 Second Test",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "8ffao",
+                          "name": "gamesLink3",
+                          "fill": "#A1A1AA",
+                          "content": "30 Second Test",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uDyNh",
+                          "name": "gamesLink4",
+                          "fill": "#A1A1AA",
+                          "content": "Custom Timer",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pAxUN",
+                      "name": "resourcesCol",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VZNGY",
+                          "name": "resourcesTitle",
+                          "fill": "#FFFFFF",
+                          "content": "Resources",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "RJPUl",
+                          "name": "resourcesLink1",
+                          "fill": "#A1A1AA",
+                          "content": "How to Improve",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "IbSS3",
+                          "name": "resourcesLink2",
+                          "fill": "#A1A1AA",
+                          "content": "Click Techniques",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "5XlZZ",
+                          "name": "resourcesLink3",
+                          "fill": "#A1A1AA",
+                          "content": "FAQ",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gA4XT",
+                      "name": "companyCol",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CRj54",
+                          "name": "companyTitle",
+                          "fill": "#FFFFFF",
+                          "content": "Company",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "QhNta",
+                          "name": "companyLink1",
+                          "fill": "#A1A1AA",
+                          "content": "About",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "kYPUr",
+                          "name": "companyLink2",
+                          "fill": "#A1A1AA",
+                          "content": "Contact",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ZyHJp",
+                          "name": "companyLink3",
+                          "fill": "#A1A1AA",
+                          "content": "Privacy",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tSCN7",
+              "name": "footerBottom",
+              "width": "fill_container",
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Eoblv",
+                  "name": "footerCopyright",
+                  "fill": "#71717A",
+                  "content": "© 2024 ClickSpeed. All rights reserved.",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "veuGB",
+      "x": 1700,
+      "y": 100,
+      "name": "Mobile Landing Page",
+      "width": 390,
+      "fill": "#F5F4F1",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "LijUO",
+          "name": "header",
+          "width": "fill_container",
+          "height": 60,
+          "fill": "#FFFFFF",
+          "padding": [
+            0,
+            24
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "5k83O",
+              "name": "logo",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "GYTpU",
+                  "name": "logoIcon",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "#3D8A5A",
+                  "cornerRadius": 8
+                },
+                {
+                  "type": "text",
+                  "id": "ajICl",
+                  "name": "logoText",
+                  "fill": "#1A1918",
+                  "content": "ClickSpeed",
+                  "fontFamily": "Outfit",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mOd7y",
+              "name": "menuBtn",
+              "width": 40,
+              "height": 40,
+              "fill": "#EDECEA",
+              "cornerRadius": 100,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "qbLAk",
+                  "name": "menuIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "menu",
+                  "iconFontFamily": "lucide",
+                  "fill": "#6D6C6A"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "wLfkd",
+          "name": "hero",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            40,
+            24
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "uR3DV",
+              "name": "badge",
+              "fill": "#C8F0D8",
+              "cornerRadius": 100,
+              "gap": 8,
+              "padding": [
+                8,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "MddrB",
+                  "name": "badgeIcon",
+                  "width": 14,
+                  "height": 14,
+                  "iconFontName": "zap",
+                  "iconFontFamily": "lucide",
+                  "fill": "#3D8A5A"
+                },
+                {
+                  "type": "text",
+                  "id": "QtWQm",
+                  "name": "badgeText",
+                  "fill": "#3D8A5A",
+                  "content": "Test Your Speed",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "897lI",
+              "name": "heroTitle",
+              "fill": "#1A1918",
+              "content": "반응 속도를\n테스트하세요",
+              "lineHeight": 1.2,
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 36,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "c5nmo",
+              "name": "heroDesc",
+              "fill": "#6D6C6A",
+              "textGrowth": "fixed-width",
+              "width": 320,
+              "content": "CPS(초당 클릭 수)를 측정하고 전 세계 플레이어와 경쟁하세요!",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 15,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "AEEy3",
+              "name": "ctaPrimary",
+              "fill": "#3D8A5A",
+              "cornerRadius": 12,
+              "gap": 8,
+              "padding": [
+                16,
+                32
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JasJP",
+                  "name": "ctaText",
+                  "fill": "#FFFFFF",
+                  "content": "지금 시작하기",
+                  "fontFamily": "Outfit",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "Hrp8z",
+                  "name": "ctaIcon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "arrow-right",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fBTif",
+              "name": "gamePreview",
+              "width": "fill_container",
+              "height": 280,
+              "fill": "#FFFFFF",
+              "cornerRadius": 16,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1A191808",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                },
+                "blur": 12
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "8aMqX",
+                  "name": "scoreDisplay",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "T1KTQ",
+                      "name": "cpsBox",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Gd24s",
+                          "name": "cpsLabel",
+                          "fill": "#1A1918",
+                          "content": "0.0",
+                          "fontFamily": "Outfit",
+                          "fontSize": 32,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ckUqi",
+                          "name": "cpsUnit",
+                          "fill": "#9C9B99",
+                          "content": "CPS",
+                          "fontFamily": "Outfit",
+                          "fontSize": 11,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yCrRO",
+                      "name": "clicksBox",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vDWzO",
+                          "name": "clicksLabel",
+                          "fill": "#1A1918",
+                          "content": "0",
+                          "fontFamily": "Outfit",
+                          "fontSize": 32,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "JN8q7",
+                          "name": "clicksUnit",
+                          "fill": "#9C9B99",
+                          "content": "클릭",
+                          "fontFamily": "Outfit",
+                          "fontSize": 11,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qD4CL",
+                  "name": "clickArea",
+                  "width": "fill_container",
+                  "height": 120,
+                  "fill": "#3D8A5A",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "aKxFS",
+                      "name": "clickIcon",
+                      "width": 32,
+                      "height": 32,
+                      "iconFontName": "hand",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PuqIQ",
+                      "name": "clickText",
+                      "fill": "#FFFFFF",
+                      "content": "클릭하여 시작",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "XZHz9",
+                  "name": "modeButtons",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "HIoHc",
+                      "name": "mode1s",
+                      "width": "fill_container",
+                      "fill": "#3D8A5A",
+                      "cornerRadius": 8,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "caPM3",
+                          "name": "mode1sText",
+                          "fill": "#FFFFFF",
+                          "content": "1초",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pbHId",
+                      "name": "mode5s",
+                      "width": "fill_container",
+                      "fill": "#EDECEA",
+                      "cornerRadius": 8,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DevUW",
+                          "name": "mode5sText",
+                          "fill": "#6D6C6A",
+                          "content": "5초",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "KBXrG",
+                      "name": "mode10s",
+                      "width": "fill_container",
+                      "fill": "#EDECEA",
+                      "cornerRadius": 8,
+                      "padding": [
+                        8,
+                        16
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Q8Fgf",
+                          "name": "mode10sText",
+                          "fill": "#6D6C6A",
+                          "content": "10초",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "T2QOf",
+          "name": "featuresSection",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            40,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "KF5Dg",
+              "name": "featuresHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SKxdt",
+                  "name": "featuresTitle",
+                  "fill": "#1A1918",
+                  "content": "게임 모드",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 26,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "Dvznu",
+                  "name": "featuresDesc",
+                  "fill": "#6D6C6A",
+                  "content": "다양한 테스트로 당신의 실력을 확인하세요",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "36vUC",
+              "name": "featuresGrid",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yIoYP",
+                  "name": "feature1",
+                  "width": "fill_container",
+                  "fill": "#F5F4F1",
+                  "cornerRadius": 16,
+                  "gap": 16,
+                  "padding": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Y1fIU",
+                      "name": "feature1Icon",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#3D8A5A",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "WFzLC",
+                          "name": "icon1",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "timer",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "BwFyr",
+                      "name": "feature1Content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "6JkNy",
+                          "name": "feature1Title",
+                          "fill": "#1A1918",
+                          "content": "클릭 스피드 테스트",
+                          "fontFamily": "Outfit",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "t24Pd",
+                          "name": "feature1Desc",
+                          "fill": "#6D6C6A",
+                          "content": "1, 5, 10초 동안 최대한 빠르게 클릭하세요",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qNN09",
+                  "name": "feature2",
+                  "width": "fill_container",
+                  "fill": "#F5F4F1",
+                  "cornerRadius": 16,
+                  "gap": 16,
+                  "padding": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "i5OiD",
+                      "name": "feature2Icon",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#D89575",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "luOqq",
+                          "name": "icon2",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "target",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "n0Q8S",
+                      "name": "feature2Content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "djBsl",
+                          "name": "feature2Title",
+                          "fill": "#1A1918",
+                          "content": "정확도 테스트",
+                          "fontFamily": "Outfit",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WJnmD",
+                          "name": "feature2Desc",
+                          "fill": "#6D6C6A",
+                          "content": "움직이는 타겟을 정확하게 클릭하세요",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qpTlA",
+                  "name": "feature3",
+                  "width": "fill_container",
+                  "fill": "#F5F4F1",
+                  "cornerRadius": 16,
+                  "gap": 16,
+                  "padding": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "h1Gzg",
+                      "name": "feature3Icon",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#4D9B6A",
+                      "cornerRadius": 12,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "M1VvO",
+                          "name": "icon3",
+                          "width": 24,
+                          "height": 24,
+                          "iconFontName": "zap",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "4wq8S",
+                      "name": "feature3Content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "I2ZTK",
+                          "name": "feature3Title",
+                          "fill": "#1A1918",
+                          "content": "반응 시간 측정",
+                          "fontFamily": "Outfit",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "faNwV",
+                          "name": "feature3Desc",
+                          "fill": "#6D6C6A",
+                          "content": "색상 변화에 얼마나 빠르게 반응하는지 측정",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tYQ2b",
+          "name": "statsSection",
+          "width": "fill_container",
+          "fill": "#F5F4F1",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            40,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "0rswa",
+              "name": "statsHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ZXKxs",
+                  "name": "statsTitle",
+                  "fill": "#1A1918",
+                  "content": "실시간 통계",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 26,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "4KyaS",
+                  "name": "statsDesc",
+                  "fill": "#6D6C6A",
+                  "content": "당신의 성과를 추적하고 개선하세요",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "9bvA2",
+              "name": "statsCards",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "EXdiN",
+                  "name": "statCard1",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 8
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "21Gy3",
+                      "name": "statCard1Header",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BR73h",
+                          "name": "statLabel1",
+                          "fill": "#6D6C6A",
+                          "content": "최고 기록",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "IYUwp",
+                          "name": "statIcon1",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "trophy",
+                          "iconFontFamily": "lucide",
+                          "fill": "#3D8A5A"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "2l9SD",
+                      "name": "statValue1",
+                      "fill": "#1A1918",
+                      "content": "15.2 CPS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 32,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "H98e7",
+                      "name": "statTrend1",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "BIPmo",
+                          "name": "trendIcon1",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "trending-up",
+                          "iconFontFamily": "lucide",
+                          "fill": "#4D9B6A"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zMDvz",
+                          "name": "trendText1",
+                          "fill": "#4D9B6A",
+                          "content": "+2.3 지난주보다",
+                          "fontFamily": "Outfit",
+                          "fontSize": 11,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Dvmam",
+                  "name": "statCard2",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#1A191808",
+                    "offset": {
+                      "x": 0,
+                      "y": 2
+                    },
+                    "blur": 8
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "wJQAr",
+                      "name": "statCard2Header",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "C6Ww4",
+                          "name": "statLabel2",
+                          "fill": "#6D6C6A",
+                          "content": "평균 기록",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "Sudlu",
+                          "name": "statIcon2",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "activity",
+                          "iconFontFamily": "lucide",
+                          "fill": "#D89575"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZbOXv",
+                      "name": "statValue2",
+                      "fill": "#1A1918",
+                      "content": "12.8 CPS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 32,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Vr5xR",
+                      "name": "statProgress",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "YVOVK",
+                          "name": "progressBar",
+                          "width": "fill_container",
+                          "height": 8,
+                          "fill": "#EDECEA",
+                          "cornerRadius": 4,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "b2tya",
+                              "name": "progressFill",
+                              "width": "fit_content(0)",
+                              "height": 8,
+                              "fill": "#D89575",
+                              "cornerRadius": 4
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "8MsRU",
+          "name": "leaderSection",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            40,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "HM1vl",
+              "name": "leaderHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "T8W4p",
+                  "name": "leaderTitle",
+                  "fill": "#1A1918",
+                  "content": "글로벌 리더보드",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 26,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "28sKq",
+                  "name": "leaderDesc",
+                  "fill": "#6D6C6A",
+                  "content": "전 세계 최고 플레이어들과 경쟁하세요",
+                  "textAlign": "center",
+                  "fontFamily": "Outfit",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "irOpW",
+              "name": "podium",
+              "width": "fill_container",
+              "gap": 8,
+              "justifyContent": "center",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SO7Qx",
+                  "name": "rank2",
+                  "width": 100,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "r5x76",
+                      "name": "rank2Medal",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#D1D0CD",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "6jQwp",
+                          "name": "medal2",
+                          "content": "🥈",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Qb34B",
+                      "name": "rank2Bar",
+                      "width": "fill_container",
+                      "height": 80,
+                      "fill": "#D1D0CD",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BrpjG",
+                          "name": "rank2Score",
+                          "fill": "#FFFFFF",
+                          "content": "14.5",
+                          "fontFamily": "Outfit",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "7fUto",
+                  "name": "rank1",
+                  "width": 100,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "2fWyK",
+                      "name": "rank1Medal",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#3D8A5A",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ydJgW",
+                          "name": "medal1",
+                          "content": "🥇",
+                          "fontFamily": "Inter",
+                          "fontSize": 28,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zuemL",
+                      "name": "rank1Bar",
+                      "width": "fill_container",
+                      "height": 120,
+                      "fill": "#3D8A5A",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "f0bDy",
+                          "name": "rank1Score",
+                          "fill": "#FFFFFF",
+                          "content": "16.8",
+                          "fontFamily": "Outfit",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zNw9b",
+                  "name": "rank3",
+                  "width": 100,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "02if5",
+                      "name": "rank3Medal",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#D08068",
+                      "cornerRadius": 100,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "w6e3g",
+                          "name": "medal3",
+                          "content": "🥉",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lmQJu",
+                      "name": "rank3Bar",
+                      "width": "fill_container",
+                      "height": 60,
+                      "fill": "#D08068",
+                      "cornerRadius": [
+                        12,
+                        12,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "zQpxA",
+                          "name": "rank3Score",
+                          "fill": "#FFFFFF",
+                          "content": "13.2",
+                          "fontFamily": "Outfit",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "5lXFc",
+              "name": "leaderList",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kCxOa",
+                  "name": "leaderRow1",
+                  "width": "fill_container",
+                  "fill": "#F5F4F1",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iG8Xx",
+                      "name": "rank4Num",
+                      "fill": "#6D6C6A",
+                      "content": "4",
+                      "textAlign": "center",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "9RqyM",
+                      "name": "rank4Name",
+                      "fill": "#1A1918",
+                      "content": "Player123",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "2XFfD",
+                      "name": "rank4Score",
+                      "fill": "#3D8A5A",
+                      "content": "12.4 CPS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "YckoO",
+                  "name": "leaderRow2",
+                  "width": "fill_container",
+                  "fill": "#F5F4F1",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DB7YQ",
+                      "name": "rank5Num",
+                      "fill": "#6D6C6A",
+                      "content": "5",
+                      "textAlign": "center",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "astkQ",
+                      "name": "rank5Name",
+                      "fill": "#1A1918",
+                      "content": "FastClicker",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AP5bQ",
+                      "name": "rank5Score",
+                      "fill": "#3D8A5A",
+                      "content": "11.9 CPS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "4ItCh",
+          "name": "ctaSection",
+          "width": "fill_container",
+          "fill": "#3D8A5A",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            40,
+            24
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "M14QF",
+              "name": "ctaSectionTitle",
+              "fill": "#FFFFFF",
+              "content": "지금 바로 시작하세요",
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 26,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "TWCwJ",
+              "name": "ctaSectionDesc",
+              "fill": "#C8F0D8",
+              "textGrowth": "fixed-width",
+              "width": 300,
+              "content": "무료로 반응 속도를 테스트하고 세계 랭킹에 도전하세요",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "6lk0T",
+              "name": "ctaSectionBtn",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "gap": 8,
+              "padding": [
+                16,
+                32
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NDLVR",
+                  "name": "ctaSectionBtnText",
+                  "fill": "#3D8A5A",
+                  "content": "무료로 시작하기",
+                  "fontFamily": "Outfit",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "Ju8xm",
+                  "name": "ctaSectionBtnIcon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "play",
+                  "iconFontFamily": "lucide",
+                  "fill": "#3D8A5A"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Z0GVk",
+          "name": "footer",
+          "width": "fill_container",
+          "fill": "#1A1918",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            32,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "JKBCW",
+              "name": "footerLogo",
+              "gap": 8,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "RxOh4",
+                  "name": "footerLogoIcon",
+                  "width": 28,
+                  "height": 28,
+                  "fill": "#3D8A5A",
+                  "cornerRadius": 8
+                },
+                {
+                  "type": "text",
+                  "id": "Em5YP",
+                  "name": "footerLogoText",
+                  "fill": "#FFFFFF",
+                  "content": "ClickSpeed",
+                  "fontFamily": "Outfit",
+                  "fontSize": 16,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ioz3n",
+              "name": "footerLinks",
+              "width": "fill_container",
+              "gap": 24,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "9D2ld",
+                  "name": "footerLink1",
+                  "fill": "#9C9B99",
+                  "content": "게임 모드",
+                  "fontFamily": "Outfit",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "nWclx",
+                  "name": "footerLink2",
+                  "fill": "#9C9B99",
+                  "content": "리더보드",
+                  "fontFamily": "Outfit",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "sZ277",
+                  "name": "footerLink3",
+                  "fill": "#9C9B99",
+                  "content": "통계",
+                  "fontFamily": "Outfit",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QZJj9",
+              "name": "footerDivider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "#2E2E2E"
+            },
+            {
+              "type": "text",
+              "id": "rPaGA",
+              "name": "footerCopyright",
+              "fill": "#6D6C6A",
+              "content": "© 2024 ClickSpeed. All rights reserved.",
+              "textAlign": "center",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "themes": {
+    "Mode": [
+      "Light",
+      "Dark"
+    ]
+  },
+  "variables": {
+    "--sidebar": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E7E8E5"
+        },
+        {
+          "value": "#18181b",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181b"
+        },
+        {
+          "value": "#18181b",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-primary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#fafafa"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#ffffff1a",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-accent": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2a2a30",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-accent-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181b"
+        },
+        {
+          "value": "#fafafa",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--sidebar-ring": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#71717a"
+        },
+        {
+          "value": "#71717a",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--background": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--card": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#1A1A1A",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--card-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--popover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#1A1A1A",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--popover-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FF8400"
+        },
+        {
+          "value": "#FF8400",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--primary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E7E8E5"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--secondary-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--muted": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--muted-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#B8B9B6",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--accent": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2F3F0"
+        },
+        {
+          "value": "#111111",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--accent-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#F2F3F0",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--destructive": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#D93C15"
+        },
+        {
+          "value": "#FF5C33",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--border": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--input": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#CBCCC9"
+        },
+        {
+          "value": "#2E2E2E",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--ring": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#666666"
+        },
+        {
+          "value": "#666666",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--white": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "--black": {
+      "type": "color",
+      "value": "#000000"
+    },
+    "--font-primary": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    },
+    "--font-secondary": {
+      "type": "string",
+      "value": "Geist"
+    },
+    "--radius-none": {
+      "type": "number",
+      "value": 0
+    },
+    "--radius-pill": {
+      "type": "number",
+      "value": 999
+    },
+    "--color-success": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#DFE6E1"
+        },
+        {
+          "value": "#222924",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-success-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#004D1A"
+        },
+        {
+          "value": "#B6FFCE",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-warning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E9E3D8"
+        },
+        {
+          "value": "#291C0F",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-warning-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#804200"
+        },
+        {
+          "value": "#FF8400",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-error": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5DCDA"
+        },
+        {
+          "value": "#24100B",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-error-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8C1C00"
+        },
+        {
+          "value": "#FF5C33",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-info": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#DFDFE6"
+        },
+        {
+          "value": "#222229",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--color-info-foreground": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#000066"
+        },
+        {
+          "value": "#B2B2FF",
+          "theme": {
+            "Mode": "Dark"
+          }
+        }
+      ]
+    },
+    "--radius-m": {
+      "type": "number",
+      "value": 16
+    }
+  }
+}
