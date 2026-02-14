@@ -1,3 +1,8 @@
+/* ===== Smooth Scroll ===== */
+html {
+    scroll-behavior: smooth;
+}
+
 /* ===== CSS Variables ===== */
 :root {
     --primary: #3D8A5A;
@@ -141,6 +146,29 @@ a {
 
 .nav-item:hover {
     color: var(--primary);
+}
+
+.settings-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-gray);
+    color: var(--text-body);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.settings-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.settings-btn svg {
+    width: 20px;
+    height: 20px;
 }
 
 .menu-btn {
@@ -429,6 +457,7 @@ a {
     /* scroll-behavior: smooth; */ /* Handled by JS transform with CSS transition */
     -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
     transition: transform 0.3s ease-in-out; /* For smooth animation */
+    will-change: transform; /* GPU acceleration hint for smoother animation */
 }
 
 /* New carousel container for navigation */
@@ -488,7 +517,7 @@ a {
 
 /* Feature card styles - adjust for carousel */
 .feature-card {
-    flex: 0 0 calc(33.333% - 16px); /* Show 3 cards at a time, accounting for gaps (24px gap between cards / 3 cards = 8px per side for each card for the gap, which means 16px total space for 2 gaps between 3 cards) */
+    flex: 0 0 calc(33.333% - 16.5px); /* Slightly reduced to prevent clipping */
     /* margin-right: 24px; */ /* Handled by gap on features-grid */
     /* max-width: calc(33.333% - (24px * 2 / 3)); */ /* Handled by flex-basis */
     /* Existing styles are kept */
@@ -500,7 +529,13 @@ a {
     gap: 20px;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, border-color 0.3s;
+}
+
+.feature-card.selected {
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 0 3px rgba(61, 138, 90, 0.15), var(--shadow-md);
+    transform: translateY(-4px);
 }
 
 /* Remove default margin-right for the last card in view */
@@ -1708,3 +1743,66 @@ body.dark-mode .comparison-message.missed-best {
 
 header h1 { color: var(--primary); }
 header p { color: var(--text-body); }
+
+/* Carousel dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px; /* Space above dots */
+    width: 100%;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--text-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0; /* Prevent dots from shrinking */
+}
+
+.carousel-dot:hover {
+    background-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.carousel-dot.selected {
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Leaderboard control buttons */
+.leaderboard-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.leaderboard-nav-btn {
+    background: var(--bg-gray); /* Similar to carousel-nav-btn */
+    color: var(--text-dark);
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.leaderboard-nav-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.leaderboard-nav-btn svg {
+    width: 20px;
+    height: 20px;
+}

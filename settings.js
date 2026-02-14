@@ -13,16 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         window.toggleTheme();
     });
 
-    // Language select (for future expansion)
+    // Language select
     const languageSelect = document.getElementById('language-select');
     if (languageSelect) {
-        // Example: load saved language preference
-        // const savedLang = localStorage.getItem('websiteLanguage') || 'ko';
-        // languageSelect.value = savedLang;
-
-        // languageSelect.addEventListener('change', (event) => {
-        //     localStorage.setItem('websiteLanguage', event.target.value);
-        //     // Optionally, refresh page or update content dynamically
-        // });
+        languageSelect.value = getLanguage();
+        languageSelect.addEventListener('change', (event) => {
+            setLanguage(event.target.value);
+        });
     }
 });

@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설정</title> <!-- Preserved Title -->
+    <title>설정</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="theme-manager.js"></script>
+    <script src="i18n.js"></script>
     <meta name="google-adsense-account" content="ca-pub-3833570049453307">
 </head>
 <body>
-    <!-- Header from index.html -->
     <header class="site-header">
         <div class="header-inner">
             <a href="index.html" class="logo-section">
@@ -23,9 +23,10 @@
                 <span class="brand-name">ClickSpeed</span>
             </a>
             <nav class="main-nav desktop-only">
-                <a href="index.html#features" class="nav-item">Game Modes</a>
-                <a href="index.html#leaderboard" class="nav-item">Leaderboard</a>
-                <a href="index.html#stats" class="nav-item">Statistics</a>
+                <a href="index.html#features" class="nav-item" data-i18n="nav.gameModes">Game Modes</a>
+                <a href="index.html#leaderboard" class="nav-item" data-i18n="nav.leaderboard">Leaderboard</a>
+                <a href="index.html#stats" class="nav-item" data-i18n="nav.statistics">Statistics</a>
+                <a href="settings.html" class="nav-item" data-i18n="nav.settings">Settings</a>
             </nav>
             <button class="menu-btn mobile-only" id="mobile-menu-btn">
                 <i data-lucide="menu"></i>
@@ -38,22 +39,20 @@
             <div class="container">
                 <main>
                     <section class="settings-section">
-                        <h2>테마 설정</h2>
+                        <h2 data-i18n="settings.themeTitle">테마 설정</h2>
                         <div class="setting-item">
-                            <span>다크 모드</span>
+                            <span data-i18n="settings.darkMode">다크 모드</span>
                             <label class="switch">
                                 <input type="checkbox" id="dark-mode-toggle">
                                 <span class="slider round"></span>
                             </label>
                         </div>
-                        <!-- Other settings can be added here -->
                         <div class="setting-item">
-                            <span>언어 설정</span>
-                            <select id="language-select" disabled>
+                            <span data-i18n="settings.langLabel">언어 설정</span>
+                            <select id="language-select">
                                 <option value="ko">한국어</option>
                                 <option value="en">English</option>
                             </select>
-                            <p class="note">다른 언어는 현재 준비 중입니다.</p>
                         </div>
                     </section>
                 </main>
@@ -61,7 +60,6 @@
         </div>
     </div>
 
-    <!-- Footer from index.html -->
     <footer class="site-footer">
         <div class="footer-top">
             <div class="footer-brand">
@@ -71,20 +69,20 @@
                     </div>
                     <span>ClickSpeed</span>
                 </div>
-                <p class="footer-desc">반응 속도와 클릭 능력을 테스트하고 향상시키는 무료 온라인 플랫폼</p>
+                <p class="footer-desc" data-i18n="footer.desc">반응 속도와 클릭 능력을 테스트하고 향상시키는 무료 온라인 플랫폼</p>
             </div>
             <div class="footer-links-group">
                 <div class="footer-links-col">
-                    <h4>게임</h4>
-                    <a href="click-test.html">클릭 스피드</a>
-                    <a href="accuracy-test.html">정확도 테스트</a>
-                    <a href="reaction-test.html">반응 시간</a>
-                    <a href="memory-test.html">기억력 테스트</a>
+                    <h4 data-i18n="footer.games">게임</h4>
+                    <a href="click-test.html" data-i18n="footer.clickSpeed">클릭 스피드</a>
+                    <a href="accuracy-test.html" data-i18n="footer.accuracyTest">정확도 테스트</a>
+                    <a href="reaction-test.html" data-i18n="footer.reactionTime">반응 시간</a>
+                    <a href="memory-test.html" data-i18n="footer.memoryTest">기억력 테스트</a>
                 </div>
                 <div class="footer-links-col">
-                    <h4>더보기</h4>
-                    <a href="results.html">종합 결과</a>
-                    <a href="settings.html">설정</a>
+                    <h4 data-i18n="footer.more">더보기</h4>
+                    <a href="results.html" data-i18n="footer.results">종합 결과</a>
+                    <a href="settings.html" data-i18n="footer.settings">설정</a>
                 </div>
             </div>
         </div>
@@ -93,7 +91,6 @@
         </div>
     </footer>
 
-    <!-- Hidden test list for JS compatibility -->
     <ul id="test-list" style="display:none;">
         <li data-test-id="reaction" data-name="반응 속도 테스트" data-description="초록색으로 바뀌면 즉시 클릭하세요!" data-url="reaction-test.html"><h3>반응 속도 테스트</h3><p>초록색으로 바뀌면 즉시 클릭하세요!</p></li>
         <li data-test-id="accuracy" data-name="마우스 커서 정확도 테스트" data-description="빨간색 원을 정확하고 빠르게 클릭하세요!" data-url="accuracy-test.html"><h3>마우스 커서 정확도 테스트</h3><p>빨간색 원을 정확하고 빠르게 클릭하세요!</p></li>
@@ -101,13 +98,12 @@
         <li data-test-id="memory" data-name="시각적 기억력 테스트" data-description="표시된 사각형을 기억하고, 사라진 후 클릭하세요!" data-url="memory-test.html"><h3>시각적 기억력 테스트</h3><p>표시된 사각형을 기억하고, 사라진 후 클릭하세요!</p></li>
     </ul>
 
-    <!-- Challenge Modal -->
     <div id="challenge-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h3>도전!</h3>
+            <h3 data-i18n="challenge.title">도전!</h3>
             <p id="challenge-text"></p>
-            <a href="#" id="challenge-start-button" class="btn-primary">도전 수락!</a>
+            <a href="#" id="challenge-start-button" class="btn-primary" data-i18n="challenge.accept">도전 수락!</a>
         </div>
     </div>
 
