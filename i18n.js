@@ -63,6 +63,8 @@ const I18N = {
         'settings.themeTitle': '테마 설정',
         'settings.darkMode': '다크 모드',
         'settings.langLabel': '언어 설정',
+        'settings.langKorean': '한국어',
+        'settings.langEnglish': '영어',
 
         // Test pages
         'test.reaction.instruction': '초록색으로 바뀌면 즉시 클릭하세요!',

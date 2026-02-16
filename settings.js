@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
         languageSelect.value = getLanguage();
         languageSelect.addEventListener('change', (event) => {
             setLanguage(event.target.value);
+            applyLanguage(event.target.value); // Apply language immediately after selection change
         });
     }
+
+    // Apply language on settings page load
+    applyLanguage();
 });

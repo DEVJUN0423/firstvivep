@@ -396,4 +396,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load
     updateHeroSection(currentTestId);
     handleChallenge();
+    applyLanguage(); // Ensure translations are applied on page load
 });
